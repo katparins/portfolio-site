@@ -18,7 +18,13 @@ import {
   GitBranch,
   Terminal,
   ExternalLink,
-  PlayCircle
+  PlayCircle,
+  BookOpen,
+  CheckCircle2,
+  Lightbulb,
+  Maximize2,
+  ChevronLeft,  // Added for navigation
+  ChevronRight  // Added for navigation
 } from 'lucide-react';
 
 // --- ASSETS ---
@@ -54,29 +60,33 @@ const PROJECTS = [
     id: "jarvis",
     title: "Jarvis Assistant",
     role: "SCBX Internship",
-    shortDesc: "An enterprise-grade AI assistant that automates metadata documentation across 50+ datasets, reducing manual engineering workload by over 90%.",
+    shortDesc: "An AI-powered tool that automatically generates clear, structured descriptions for BigQuery tables and columns using LLMs.",
     tags: ["AI", "GCP", "LangChain"],
     color: "bg-[#F5F0E6]", // Cream/Almond
     textColor: "text-[#5D4037]",
     rotation: "hover:rotate-1",
     type: "Engineering",
-    image: "", // Add your image path here e.g., "jarvis-screenshot.png"
-    liveUrl: "", // Add link if public
-    demoUrl: "", // Add video link
+    image: "", // Main cover image
+    // NEW: Gallery images for the modal
+    gallery: [
+       "jarvis-workflow.png",
+       "jarvis-tools.png",
+       "jarvis-decision.png",
+       "jarvis-output.png"
+    ],
+    liveUrl: "", 
+    demoUrl: "", 
     detail: {
-      challenge: "Engineers were spending hours manually querying and documenting metadata across 50+ fragmented datasets, creating a significant bottleneck in the data pipeline.",
-      solution: [
-        "Architected a scalable RAG pipeline using LangChain and OpenAI to parse complex schemas and generate documentation.",
-        "Integrated Confluence search and SQL validation to ensure 100% accuracy in generated metadata.",
-        "Automated the deployment process using Cloud Build CI/CD pipelines."
-      ],
-      process: [
-        { title: "Discovery", desc: "Analyzed the manual documentation workflow and identified that JSON parsing and schema validation were the biggest time sinks." },
-        { title: "Architecture", desc: "Designed a retrieval system integrating BigQuery for raw data and OpenAI for semantic synthesis." },
-        { title: "Optimization", desc: "Implemented 'tiktoken' chunking to handle large schema inputs, preventing token overflow errors." },
-        { title: "Deployment", desc: "Containerized the application via Docker and deployed to GCP Cloud Run with Secret Manager for enterprise security." }
-      ],
-      stack: ["Python", "LangChain", "GCP", "SQL", "Docker", "CI/CD"]
+      // Content reformatted for better readability while keeping detail
+      overview: "An AI-powered tool that automatically generates clear, structured descriptions for BigQuery tables and columns. It uses large language models to turn complex metadata into readable documentation that helps teams understand unfamiliar datasets quickly.",
+      
+      background: "I built this project during my internship at SCBX ABACUS Digital as part of the Data Engineering team.\n\n**The Problem**\nInternal metadata was often incomplete or unclear, which made it difficult for engineers and analysts to interpret unfamiliar tables and queries.\n\n**The Solution**\nI wanted to automate that process with language models to turn complex data into something people could understand. The name “Jarvis” came from the AI assistant in Iron Man, since it was designed to act as a smart system that supports the team.",
+      
+      processText: "I built a LangChain agent that generates both column-level and table-level metadata descriptions. The system retrieves schema information, references internal documentation, and processes everything through a ReAct-based agent that selects the right tools for each task.\n\n**Tools & Implementation**\nI created tools such as `query_from_bigquery_chunked` and `fetch_confluence_chunked` to pull data and internal documentation before generating structured descriptions.\n\n**Challenges**\nOne of the main challenges was handling large queries, rate limits, and inconsistent outputs. Some responses failed due to token limits, invalid SQL, or broken JSON. I solved this by:\n• Adding a chunking and summarization function.\n• Creating a recursive try-catch loop to retry failed outputs.\n• Refining the prompt logic to produce more stable and consistent results.\n\nFinally, it formats the results and exports them as JSON files for easy integration into data pipelines.",
+      
+      outcome: "**Impact**\nJarvis automated the process of writing metadata, saving time and ensuring clarity across hundreds of datasets. It improved internal understanding of data assets and provided a scalable system for future features such as automatic tagging and data quality summaries.\n\n**Growth**\nThe project expanded my understanding of prompt engineering, data pipeline architecture, and how AI can transform the way teams interact with data.",
+      
+      stack: ["LangChain", "OpenAI", "Google Cloud Platform", "Confluence API", "Python"]
     }
   },
   {
@@ -249,9 +259,93 @@ const Sticker = ({ icon, label, color, rotate }) => (
 );
 
 const ProjectModal = ({ project, onClose }) => {
+  // NEW: State for the lightbox expanded image index (null when closed)
+  const [expandedIndex, setExpandedIndex] = useState(null);
+
   if (!project) return null;
+  
+  // Destructure detail. If overview exists, we use the new layout.
+  const isRichContent = !!project.detail.overview;
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    if (expandedIndex !== null && project.gallery && expandedIndex < project.gallery.length - 1) {
+      setExpandedIndex(expandedIndex + 1);
+    }
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    if (expandedIndex !== null && expandedIndex > 0) {
+      setExpandedIndex(expandedIndex - 1);
+    }
+  };
+
+  // Helper function to render bold text
+  const parseBold = (text) => {
+    if (!text) return null;
+    // Splits by **text** pattern
+    return text.split(/(\*\*.*?\*\*)/g).map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        // Return bolded element
+        return <strong key={index} className="font-semibold text-[#3E2723]">{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-md bg-[#3E2723]/10">
+      
+      {/* Lightbox Overlay */}
+      {expandedIndex !== null && project.gallery && (
+        <div 
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/95 p-4 animate-in fade-in duration-200"
+          onClick={() => setExpandedIndex(null)}
+        >
+          {/* Close Button */}
+          <button 
+            className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
+            onClick={() => setExpandedIndex(null)}
+          >
+            <X size={28} />
+          </button>
+
+          {/* Prev Button */}
+          {expandedIndex > 0 && (
+            <button
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
+                onClick={handlePrev}
+            >
+                <ChevronLeft size={40} />
+            </button>
+          )}
+
+          {/* Next Button */}
+          {expandedIndex < project.gallery.length - 1 && (
+            <button
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
+                onClick={handleNext}
+            >
+                <ChevronRight size={40} />
+            </button>
+          )}
+
+          {/* Current Image */}
+          <img 
+            src={project.gallery[expandedIndex]} 
+            alt="Expanded view" 
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-in-95 animate-in duration-300"
+            onClick={(e) => e.stopPropagation()} 
+          />
+          
+          {/* Counter */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 bg-black/50 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+            {expandedIndex + 1} / {project.gallery.length}
+          </div>
+        </div>
+      )}
+
       <div 
         className="absolute inset-0" 
         onClick={onClose} 
@@ -311,42 +405,113 @@ const ProjectModal = ({ project, onClose }) => {
         {/* Modal Content */}
         <div className="p-8 md:p-10 space-y-10">
           
-          {/* Section 1: Challenge */}
-          <div>
-            <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
-              <Sparkles size={24} className="text-[#D7CCC8]" /> The Story
-            </h3>
-            <p className="text-[#5D4037] text-lg leading-relaxed opacity-90 font-light border-l-2 border-[#EBE0D0] pl-6">
-              {project.detail.challenge}
-            </p>
-          </div>
-          
-          {/* Section 2: Process (NEW) */}
-          <div>
-             <h3 className="font-serif text-2xl mb-6 flex items-center gap-3 text-[#3E2723]">
-              <GitBranch size={24} className="text-[#D7CCC8]" /> The Process
-            </h3>
-            <div className="space-y-6">
-              {project.detail.process.map((step, i) => (
-                <div key={i} className="flex gap-4 group">
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#F5F0E6] flex items-center justify-center text-[#8D6E63] font-bold text-sm border border-[#EBE0D0] group-hover:bg-[#3E2723] group-hover:text-white transition-colors">
-                      {i + 1}
-                    </div>
-                    {i !== project.detail.process.length - 1 && (
-                      <div className="w-px h-full bg-[#EBE0D0] my-2"></div>
-                    )}
-                  </div>
-                  <div className="pb-2">
-                    <h4 className="font-serif text-lg text-[#3E2723] font-bold mb-1">{step.title}</h4>
-                    <p className="text-[#5D4037] text-sm leading-relaxed">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {isRichContent ? (
+            /* --- NEW RICH CONTENT LAYOUT (Jarvis) --- */
+            <>
+              {/* Overview */}
+              <div>
+                <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
+                  <Sparkles size={24} className="text-[#D7CCC8]" /> Overview
+                </h3>
+                <p className="text-[#5D4037] text-lg leading-relaxed font-light border-l-2 border-[#EBE0D0] pl-6">
+                  {parseBold(project.detail.overview)}
+                </p>
+              </div>
 
-          {/* Section 3: Tech Stack (Footer) */}
+              {/* Background */}
+              <div className="bg-[#FAF9F6] p-6 rounded-2xl border border-[#EBE0D0]">
+                 <h3 className="font-serif text-xl mb-3 flex items-center gap-2 text-[#3E2723]">
+                   <BookOpen size={20} className="text-[#D7CCC8]" /> Background
+                 </h3>
+                 <p className="text-[#5D4037] leading-relaxed opacity-90 text-sm md:text-base whitespace-pre-line">
+                   {parseBold(project.detail.background)}
+                 </p>
+              </div>
+
+              {/* Image Gallery (4 pics) - Updated with Expand Logic */}
+              {project.gallery && (
+                <div>
+                   <h3 className="font-serif text-xl mb-4 text-[#3E2723] opacity-80">Snapshots</h3>
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     {project.gallery.map((img, i) => (
+                       <div 
+                         key={i} 
+                         onClick={() => setExpandedIndex(i)}
+                         className="aspect-video bg-[#F5F0E6] rounded-xl overflow-hidden border border-[#EBE0D0] shadow-sm relative group cursor-zoom-in"
+                       >
+                          <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                          
+                          {/* Hover Overlay Visual Cue */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
+                             <div className="bg-white/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all shadow-md text-[#3E2723]">
+                               <Maximize2 size={20} />
+                             </div>
+                          </div>
+                       </div>
+                     ))}
+                   </div>
+                </div>
+              )}
+
+              {/* Process Text */}
+              <div>
+                 <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
+                   <GitBranch size={24} className="text-[#D7CCC8]" /> The Process
+                 </h3>
+                 <p className="text-[#5D4037] leading-relaxed whitespace-pre-line text-lg font-light">
+                   {parseBold(project.detail.processText)}
+                 </p>
+              </div>
+
+              {/* Outcome */}
+              <div className="bg-[#F5F0E6] p-6 rounded-2xl border border-[#EBE0D0]">
+                 <h3 className="font-serif text-xl mb-3 flex items-center gap-2 text-[#3E2723]">
+                   <CheckCircle2 size={20} className="text-[#D7CCC8]" /> Outcome
+                 </h3>
+                 <p className="text-[#5D4037] leading-relaxed opacity-90 text-sm md:text-base whitespace-pre-line">
+                   {parseBold(project.detail.outcome)}
+                 </p>
+              </div>
+            </>
+          ) : (
+            /* --- ORIGINAL LAYOUT (Legacy projects) --- */
+            <>
+              <div>
+                <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
+                  <Sparkles size={24} className="text-[#D7CCC8]" /> The Story
+                </h3>
+                <p className="text-[#5D4037] text-lg leading-relaxed opacity-90 font-light border-l-2 border-[#EBE0D0] pl-6">
+                  {project.detail.challenge}
+                </p>
+              </div>
+              
+              <div>
+                 <h3 className="font-serif text-2xl mb-6 flex items-center gap-3 text-[#3E2723]">
+                  <GitBranch size={24} className="text-[#D7CCC8]" /> The Process
+                </h3>
+                <div className="space-y-6">
+                  {project.detail.process.map((step, i) => (
+                    <div key={i} className="flex gap-4 group">
+                      <div className="flex flex-col items-center">
+                        <div className="w-8 h-8 rounded-full bg-[#F5F0E6] flex items-center justify-center text-[#8D6E63] font-bold text-sm border border-[#EBE0D0] group-hover:bg-[#3E2723] group-hover:text-white transition-colors">
+                          {i + 1}
+                        </div>
+                        {i !== project.detail.process.length - 1 && (
+                          <div className="w-px h-full bg-[#EBE0D0] my-2"></div>
+                        )}
+                      </div>
+                      <div className="pb-2">
+                        <h4 className="font-serif text-lg text-[#3E2723] font-bold mb-1">{step.title}</h4>
+                        <p className="text-[#5D4037] text-sm leading-relaxed">{step.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Footer - Tech Stack (Shared) */}
           <div className="pt-8 border-t border-dashed border-[#EBE0D0]">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#8D6E63] mb-4 flex items-center gap-2">
               <Terminal size={14} /> Technologies Used
@@ -375,6 +540,7 @@ const App = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
         
+        html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
         
@@ -425,21 +591,24 @@ const App = () => {
       {/* --- BACKGROUND DECORATION --- */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-20 left-[10%] text-[#EBE0D0] opacity-50 animate-float" style={{ animationDelay: '0s' }}><Star size={24} /></div>
-        <div className="absolute top-40 right-[15%] text-[#D7CCC8] opacity-50 animate-float" style={{ animationDelay: '2s' }}><Sparkles size={32} /></div>
+        {/* Deleted Sparkle Here */}
         <div className="absolute bottom-32 left-[20%] text-[#EBE0D0] opacity-50 animate-float" style={{ animationDelay: '4s' }}><Heart size={20} /></div>
       </div>
 
       {/* --- NAVIGATION --- */}
-      <nav className="fixed top-0 w-full z-40 px-6 py-6 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-           <div className="pointer-events-auto flex items-center gap-4">
-             {/* Updated size: h-20 (was h-12) */}
-             <LogoKw className="h-20 w-auto" />
+      <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#EBE0D0] shadow-sm transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+           <div className="flex items-center gap-4">
+             {/* Adjusted size for the bar layout */}
+             <a href="#" aria-label="Home">
+                <LogoKw className="h-16 w-auto" />
+             </a>
              {/* --- UPDATED ROLE: "Creative Engineer" --- */}
-             <span className="hidden md:block font-serif italic text-xl text-[#5D4037]">Creative Engineer</span>
+             <span className="hidden md:block font-serif italic text-xl text-[#5D4037]">Software Engineer</span>
            </div>
            
-           <div className="hidden md:flex pointer-events-auto bg-white/80 backdrop-blur-md px-8 py-4 rounded-full shadow-sm border border-[#EBE0D0] gap-8 text-sm font-medium text-[#5D4037] transition-all hover:shadow-md hover:scale-105">
+           {/* Restored px-8 py-4 to make the bubble the original size */}
+           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5D4037] bg-white px-8 py-4 rounded-full border border-[#EBE0D0] shadow-sm">
              {['Work', 'About', 'Resume'].map((item) => (
                <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-[#3E2723] transition-colors relative group">
                  {item}
@@ -466,10 +635,8 @@ const App = () => {
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-[#5D4037] leading-relaxed max-w-xl mb-10 font-light">
-              I build intelligent systems with a <span className="font-medium text-[#3E2723]">creative heart</span>.
-              <br className="hidden md:block" />
-              Currently weaving code & design at <span className="border-b-2 border-[#D7CCC8]">NYU</span>.
+            <p className="text-lg md:text-xl text-[#5D4037] leading-relaxed max-w-2xl mb-10 font-light">
+              I build digital experiences shaped by <span className="font-medium text-[#3E2723]">creativity, engineering, and data</span>, focusing on human centered design and tools that support better work.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -577,8 +744,7 @@ const App = () => {
              </div>
              <h2 className="text-4xl md:text-5xl font-serif mb-8 text-[#3E2723]">A Little About Me</h2>
              <p className="text-[#5D4037] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-               I’m a <span className="custom-underline font-medium text-[#3E2723]">minimalist at heart</span> who loves complex problems. 
-               When I'm not optimizing SQL queries, I'm curating my space, playing piano, or hunting for the best green tea in NYC.
+               I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>, a Software Engineer who blends <span className="custom-underline font-medium text-[#3E2723]">creativity and code</span> to build intuitive, human centered systems. When I’m not coding, you’ll probably find me with jasmine green tea, updating my Miffy collection, or looking for new food spots to try.
              </p>
           </div>
 
@@ -619,7 +785,7 @@ const App = () => {
              <Zap className="mx-auto text-[#D7CCC8] mb-4" size={32} />
              <h2 className="text-3xl font-serif mb-8 text-[#3E2723]">Let's create something cute.</h2>
              <a href="mailto:pw2313@nyu.edu" className="inline-block bg-[#3E2723] text-[#FDFBF7] px-8 py-4 rounded-full font-medium hover:bg-[#5D4037] transition-all hover:shadow-lg transform hover:-translate-y-1">
-               Say Hello 👋
+               Say Hello 🤍
              </a>
            </div>
            
@@ -630,7 +796,7 @@ const App = () => {
            </div>
            
            <p className="text-xs text-[#D7CCC8]">
-             © 2025 Kat W. • Built with React, Tailwind & Warmth.
+             © 2025 Kat W. • Built with React, Tailwind & Jasmine Tea.
            </p>
         </div>
       </footer>
