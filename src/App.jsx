@@ -120,35 +120,6 @@ const PROJECTS = [
     }
   },
   {
-    id: "confucius",
-    title: "Confucius AI",
-    role: "Judge's Top Choice",
-    shortDesc: "An award-winning multi-modal AI tutor that transforms dense lectures into interactive, 90-second 'crash courses' using real-time audio synthesis.",
-    tags: ["GenAI", "React", "EdTech"],
-    color: "bg-[#FAF9F6]", // White/Linen
-    textColor: "text-[#8D6E63]",
-    rotation: "hover:rotate-2",
-    type: "Innovation",
-    image: "", // Add your image path here
-    liveUrl: "https://devpost.com/software/confucius", // Example placeholder
-    demoUrl: "https://youtube.com", // Example placeholder
-    detail: {
-      challenge: "Students struggle to digest hour-long lectures efficiently. We needed a way to bridge the gap between dense academic content and rapid engagement.",
-      solution: [
-        "Developed a multi-modal pipeline: Whisper for transcription, Gemini for summarization, ElevenLabs for audio generation.",
-        "Built a React/Tailwind frontend that visualizes key concepts in real-time as the AI speaks.",
-        "Optimized inference using Nano/Banana for near-instant feedback."
-      ],
-      process: [
-        { title: "Ideation", desc: "Brainstormed 'TikTok for Education'—how to make learning instant and engaging without losing depth." },
-        { title: "Backend Logic", desc: "Chained Whisper (audio-to-text) with Gemini (text-to-summary) for rapid content distillation." },
-        { title: "Voice Synthesis", desc: "Used ElevenLabs to give the AI a 'tutor' persona that speaks naturally, enhancing retention." },
-        { title: "Frontend Sync", desc: "Built a React interface that flashes visual cards in perfect sync with the AI audio timestamps." }
-      ],
-      stack: ["React", "Gemini", "Whisper", "Tailwind", "Nano/Banana"]
-    }
-  },
-  {
     id: "alien-dating",
     title: "Alien Dating App",
     role: "Creative Coding",
