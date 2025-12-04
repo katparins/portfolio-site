@@ -641,7 +641,7 @@ const App = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-[#5D4037] leading-relaxed max-w-2xl mb-10 font-light">
-              I’m a software engineer who builds digital experiences shaped by <span className="font-medium text-[#3E2723]">creativity, engineering, and data</span>, with a focus on human-centered design and tools that support better work.
+              I’m a <span className="font-medium text-[#3E2723]">software engineer</span> who builds digital experiences shaped by <span className="font-medium text-[#8D6E63]">creativity, engineering, and data</span>, with a focus on human-centered design and tools that support better work.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
