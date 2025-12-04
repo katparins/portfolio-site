@@ -23,8 +23,9 @@ import {
   CheckCircle2,
   Lightbulb,
   Maximize2,
-  ChevronLeft,  // Added for navigation
-  ChevronRight  // Added for navigation
+  ChevronLeft,
+  ChevronRight,
+  FileText 
 } from 'lucide-react';
 
 // --- ASSETS ---
@@ -67,7 +68,7 @@ const PROJECTS = [
     rotation: "hover:rotate-1",
     type: "Engineering",
     image: "", // Main cover image
-    // NEW: Gallery images for the modal
+    docUrl: "#", 
     gallery: [
        "jarvis-workflow.png",
        "jarvis-tools.png",
@@ -77,7 +78,6 @@ const PROJECTS = [
     liveUrl: "", 
     demoUrl: "", 
     detail: {
-      // Content reformatted for better readability while keeping detail
       overview: "An AI-powered tool that automatically generates clear, structured descriptions for BigQuery tables and columns. It uses large language models to turn complex metadata into readable documentation that helps teams understand unfamiliar datasets quickly.",
       
       background: "I built this project during my internship at SCBX ABACUS Digital as part of the Data Engineering team.\n\n**The Problem**\nInternal metadata was often incomplete or unclear, which made it difficult for engineers and analysts to interpret unfamiliar tables and queries.\n\n**The Solution**\nI wanted to automate that process with language models to turn complex data into something people could understand. The name “Jarvis” came from the AI assistant in Iron Man, since it was designed to act as a smart system that supports the team.",
@@ -100,7 +100,7 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "", // Add your image path here
-    // Updated image filenames
+    docUrl: "#",
     gallery: [
       "ptt-output.png", 
       "ptt-summary.png"
@@ -130,15 +130,16 @@ const PROJECTS = [
     rotation: "hover:-rotate-2",
     type: "Creative",
     image: "", // Add your image path here
-    // Updated gallery filenames
+    // Added placeholders for githubUrl and demoUrl (Video Documentation)
+    githubUrl: "#",
+    liveUrl: "https://p5js.org/", 
+    demoUrl: "#", // Serves as Video Documentation
     gallery: [
       "alien-home.jpg",
       "alien-profile.jpg",
       "alien-chat.jpg",
       "alien-call.jpg"
     ],
-    liveUrl: "https://p5js.org/", // Example placeholder
-    demoUrl: "",
     detail: {
       overview: "A simulated dating app set in a distant future where humans face extinction from climate change and resource depletion. As new planets are discovered and interspecies relationships begin to form, the app connects creatures from across the galaxy. It explores love beyond planetary boundaries and how technology and emotion come together in the search for connection across the universe.",
       
@@ -162,22 +163,24 @@ const PROJECTS = [
     rotation: "hover:rotate-1",
     type: "Creative",
     image: "", // Add your image path here
-    liveUrl: "",
+    gallery: [
+      "24game-home.jpg",
+      "24game-output.jpg"
+    ],
+    // Updated: Added non-empty strings to enable the buttons
+    liveUrl: "#", 
+    githubUrl: "#",
     demoUrl: "",
     detail: {
-      challenge: "Solving the '24 Game' requires complex permutation logic that can be slow and unreadable if not properly optimized.",
-      solution: [
-        "Developed a recursive backtracking algorithm to handle all edge cases.",
-        "Built a clean, interactive web interface using Streamlit.",
-        "Refactored legacy code to improve execution speed by 90%."
-      ],
-      process: [
-        { title: "Algorithm Design", desc: "Deconstructed the math rules into a recursive tree search problem to find all valid solutions." },
-        { title: "Optimization", desc: "Refactored the backtracking logic to prune invalid branches early, significantly reducing compute time." },
-        { title: "Web Wrapper", desc: "Built a Streamlit frontend to allow users to input numbers and see solutions instantly." },
-        { title: "Testing", desc: "Validated against difficult edge cases (e.g., repeating numbers, fractions) to ensure robustness." }
-      ],
-      stack: ["Python", "Streamlit", "Algorithms"]
+      overview: "A web app that finds every possible way to make 24 from four numbers. It explores all combinations, covers edge cases, and avoids floating point errors.",
+      
+      background: "**The Inspiration**\nI started this project during my Intro to Programming class. Around that time, I played the 24 Game a lot to distract myself from heartbreak, and I would get frustrated whenever I couldn’t solve it. That mix of curiosity and emotion turned into an idea to build my own solver.\n\n**The Journey**\nThe first version ended up being over 4,000 lines of nested loops that somehow worked. After learning more about algorithms and recursion, I refactored everything into around 300 clean lines. The old version still lives in the “trial and error” folder as a reminder of how it all started.",
+      
+      processText: "**Recursion & Logic**\nThe solver uses recursion to test every possible order of numbers and operators while filtering out duplicates and invalid expressions.\nI focused on handling small details like rounding errors and clean output formatting so the app feels accurate and easy to use.",
+      
+      outcome: "**Performance**\nThe solver runs smoothly and consistently finds all valid results, even in cases that other online solvers cannot handle.\n\n**Growth**\nIt became more than just a coding exercise. It is proof of how much I have grown as a programmer and how creativity can come from genuine curiosity and persistence.",
+      
+      stack: ["Python", "Streamlit"]
     }
   }
 ];
@@ -363,14 +366,34 @@ const ProjectModal = ({ project, onClose }) => {
                   Visit Live Site <ExternalLink size={16} />
                 </a>
               )}
+              {project.githubUrl && (
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex items-center gap-2 bg-white text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#FAF9F6] transition-all shadow-sm border border-[#EBE0D0] hover:border-[#3E2723] hover:shadow-md transform hover:-translate-y-0.5"
+                >
+                  GitHub <Github size={16} />
+                </a>
+              )}
               {project.demoUrl && (
                 <a 
                   href={project.demoUrl} 
                   target="_blank" 
                   rel="noreferrer"
-                  className="flex items-center gap-2 bg-white text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#FAFAFA] transition-all shadow-sm border border-[#EBE0D0] hover:border-[#3E2723]"
+                  className="flex items-center gap-2 bg-[#E8DAC8] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#F3E9DD] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
                 >
                   Watch Demo <PlayCircle size={16} />
+                </a>
+              )}
+              {project.docUrl && (
+                <a 
+                  href={project.docUrl} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex items-center gap-2 bg-[#EBE0D0] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#E6DCCA] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                >
+                  Documentation <FileText size={16} />
                 </a>
               )}
             </div>
@@ -378,7 +401,7 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
 
         {/* Modal Content */}
-        <div className="p-8 md:p-10 space-y-10">
+        <div className="p-8 md:p-10 space-y-6">
           
           {isRichContent ? (
             /* --- NEW RICH CONTENT LAYOUT (Jarvis & Report Gen) --- */
@@ -585,7 +608,13 @@ const App = () => {
            {/* Restored px-8 py-4 to make the bubble the original size */}
            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5D4037] bg-white px-8 py-4 rounded-full border border-[#EBE0D0] shadow-sm">
              {['Work', 'About', 'Resume'].map((item) => (
-               <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-[#3E2723] transition-colors relative group">
+               <a 
+                 key={item} 
+                 href={item === 'Resume' ? "Kat_Wongsrisoontorn_Resume.pdf" : `#${item.toLowerCase()}`} 
+                 target={item === 'Resume' ? "_blank" : "_self"}
+                 rel={item === 'Resume' ? "noopener noreferrer" : ""}
+                 className="hover:text-[#3E2723] transition-colors relative group"
+               >
                  {item}
                  <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-[#D7CCC8] transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                </a>
@@ -765,7 +794,7 @@ const App = () => {
            </div>
            
            <div className="flex justify-center gap-8 text-sm text-[#8D6E63] font-medium tracking-wide uppercase mb-12">
-              <a href="/Kat_Wongsrisoontorn_Resume.pdf" className="hover:text-[#3E2723] transition-colors border-b border-transparent hover:border-[#3E2723]">Resume</a>
+              <a href="Kat_Wongsrisoontorn_Resume.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-[#3E2723] transition-colors border-b border-transparent hover:border-[#3E2723]">Resume</a>
               <a href="https://linkedin.com/in/katwongs" className="hover:text-[#3E2723] transition-colors border-b border-transparent hover:border-[#3E2723]">LinkedIn</a>
               <a href="https://github.com/katparins" className="hover:text-[#3E2723] transition-colors border-b border-transparent hover:border-[#3E2723]">GitHub</a>
            </div>
