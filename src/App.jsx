@@ -150,31 +150,34 @@ const PROJECTS = [
   },
   {
     id: "alien-dating",
-    title: "Alien Dating Sim",
+    title: "Alien Dating App",
     role: "Creative Coding",
-    shortDesc: "A satirical, interactive simulation of futuristic dating, featuring a custom-built chatbot engine and generative video call visuals using p5.js.",
+    shortDesc: "An interactive simulation of a futuristic online dating platform with a chatbot and video call features, built using p5.js.",
     tags: ["p5.js", "Art", "Design"],
     color: "bg-[#E6DCCA]", // Warm Sand
     textColor: "text-[#5D4037]",
     rotation: "hover:-rotate-2",
     type: "Creative",
     image: "", // Add your image path here
+    // Updated gallery filenames
+    gallery: [
+      "alien-home.jpg",
+      "alien-profile.jpg",
+      "alien-chat.jpg",
+      "alien-call.jpg"
+    ],
     liveUrl: "https://p5js.org/", // Example placeholder
     demoUrl: "",
     detail: {
-      challenge: "Exploring digital connection through a fun, weird lens using code as a medium for storytelling and interaction design.",
-      solution: [
-        "Simulated a full chatbot interface with branching dialogue trees.",
-        "Created generative alien avatars using p5.js noise functions.",
-        "Designed a 'video call' simulation using pixel manipulation."
-      ],
-      process: [
-        { title: "Character Design", desc: "Sketched alien archetypes and translated them into generative p5.js shapes and colors." },
-        { title: "State Management", desc: "Wrote a custom state machine to handle complex dialogue trees and narrative choices." },
-        { title: "Simulation", desc: "Built a 'fake' video call UI using noise algorithms to simulate static, movement, and emotion." },
-        { title: "Polish", desc: "Refined the color palette and typography to parody modern dating app aesthetics." }
-      ],
-      stack: ["p5.js", "JavaScript", "Figma", "HTML/CSS"]
+      overview: "A simulated dating app set in a distant future where humans face extinction from climate change and resource depletion. As new planets are discovered and interspecies relationships begin to form, the app connects creatures from across the galaxy. It explores love beyond planetary boundaries and how technology and emotion come together in the search for connection across the universe.",
+      
+      background: "**The Context**\nI created this project during my first semester at NYU as my first coding experiment. During the ideation process, I used card sorting to group different words and themes.\n\n**The Concept**\nI explored five directions, but the combination of digital, technology, romance, queer, and aliens stood out the most. From there, the concept grew into a dating app that imagines what connection might look like in a world where species boundaries no longer exist.",
+      
+      processText: "**Design & Narrative**\nI designed the interface to resemble a futuristic dating platform for aliens. Each species has unique traits and personalities, with subtle animations and small narrative details.\n\n**Implementation**\nI used several p5.js functions, including webcam features to simulate video calls, and added chat bots that let users interact with 11 alien characters. My goal was to make the experience feel immersive and playful, with simple and visually engaging interactions.",
+      
+      outcome: "**Reflection**\nThe project became more than a creative coding exercise. It showed me how storytelling and interface design can come together to create something that feels engaging and alive.\n\n**Growth**\nIt also grew my interest in using creativity and technology to design experiences that help people connect in new and meaningful ways.",
+      
+      stack: ["p5.js", "JavaScript", "Canva"]
     }
   },
   {
