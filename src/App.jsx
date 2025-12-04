@@ -59,7 +59,7 @@ const PROJECTS = [
   {
     id: "jarvis",
     title: "Jarvis Assistant",
-    role: "SCBX Internship",
+    role: "Data Engineering",
     shortDesc: "An AI-powered tool that automatically generates clear, structured descriptions for BigQuery tables and columns using LLMs.",
     tags: ["AI", "GCP", "LangChain"],
     color: "bg-[#F5F0E6]", // Cream/Almond
@@ -92,8 +92,8 @@ const PROJECTS = [
   {
     id: "report-gen",
     title: "Report Generator",
-    role: "PTT Internship",
-    shortDesc: "A high-volume data processing engine that automates feasibility reports, leveraging Kafka and Pandas to boost operational productivity by 900%.",
+    role: "Software Engineering",
+    shortDesc: "A Python-based report automation tool that processes high-volume data with Pandas and improves reporting workflows by over 900 percent.",
     tags: ["Data", "Automation", "Python"],
     color: "bg-[#EBE0D0]", // Latte/Beige
     textColor: "text-[#3E2723]",
@@ -110,7 +110,7 @@ const PROJECTS = [
     detail: {
       overview: "A Python-based internal tool that automatically generates data reports from raw input files. It organizes, calculates, and formats results into clear summaries that teams can review easily. The system replaces a slow manual reporting process, reducing repetitive work and improving accuracy and efficiency for the operations team.",
       
-      background: "I developed this tool during my internship at PTT Group as part of the On-ion EV Charger operations team.\n\n**The Problem**\nThe team’s reporting workflow required manually compiling and analyzing data from thousands of records, which often took days to finish.\n\n**The Solution**\nI wanted to simplify that process by building an automated solution that could generate structured reports in seconds. The goal was to make data review faster, more consistent, and easier to share across teams.",
+      background: "I developed this tool during my software engineering internship at PTT Group as part of the On-ion EV Charger operations team.\n\n**The Problem**\nThe team’s reporting workflow required manually compiling and analyzing data from thousands of records, which often took days to finish.\n\n**The Solution**\nI wanted to simplify that process by building an automated solution that could generate structured reports in seconds. The goal was to make data review faster, more consistent, and easier to share across teams.",
       
       processText: "**Automated Workflow**\nI built a Python script that automates the reporting workflow for the operations team. The program reads booking data, cleans and filters invalid entries, calculates payment amounts, and generates summarized reports automatically.\n\n**Data Processing**\nIt removes irrelevant data, computes total and refund-adjusted values for each transaction, and adds a summary section to highlight key metrics. The goal was to ensure that every report contains accurate and usable information and reduce manual effort in the process.",
       
@@ -155,7 +155,7 @@ const PROJECTS = [
     id: "24-solver",
     title: "24 Game Solver",
     role: "Algorithm Design",
-    shortDesc: "A highly optimized algorithmic solver for the '24 Game' logic puzzle, achieving a 90% efficiency increase via recursive backtracking and Streamlit.",
+    shortDesc: "A Python web app that solves the 24 Game puzzle using backtracking to compute valid expressions and handles edge cases with accuracy.",
     tags: ["Algo", "Python", "Web"],
     color: "bg-[#FFFDF5]", // Soft White
     textColor: "text-[#8D6E63]",
