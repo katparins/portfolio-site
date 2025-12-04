@@ -25,14 +25,15 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
-  FileText 
+  FileText,
+  Menu 
 } from 'lucide-react';
 
 // --- ASSETS ---
 // NOTE: To ensure this runs in both the preview and your local environment (without import errors),
 // please ensure 'kw-logo.png' and 'graphic-kat.png' are placed in your 'public/' folder.
-const logoKw = "/kw-logo.png";
-const avatarKat = "/graphic-kat.png";
+const logoKw = "kw-logo.png";
+const avatarKat = "graphic-kat.png";
 
 const LogoKw = ({ className = "h-12 w-auto" }) => (
   <img 
@@ -69,12 +70,12 @@ const PROJECTS = [
     type: "Engineering",
     image: "", // Main cover image
     // Updated documentation link
-    docUrl: "/SCBX-presentation.pdf", 
+    docUrl: "SCBX-presentation.pdf", 
     gallery: [
-       "/jarvis-workflow.png",
-       "/jarvis-tools.png",
-       "/jarvis-decision.png",
-       "/jarvis-output.png"
+       "jarvis-workflow.png",
+       "jarvis-tools.png",
+       "jarvis-decision.png",
+       "jarvis-output.png"
     ],
     liveUrl: "", 
     demoUrl: "", 
@@ -101,10 +102,10 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "", // Add your image path here
-    docUrl: "/PTT-presentation.pdf",
+    docUrl: "PTT-presentation.pdf",
     gallery: [
-      "/ptt-output.png", 
-      "/ptt-summary.png"
+      "ptt-output.png", 
+      "ptt-summary.png"
     ],
     liveUrl: "",
     demoUrl: "",
@@ -136,10 +137,10 @@ const PROJECTS = [
     liveUrl: "https://editor.p5js.org/pw2313/full/VdRf5RFUm", 
     demoUrl: "https://youtu.be/xujbxAD08Ts", // Serves as Video Documentation
     gallery: [
-      "/alien-home.jpg",
-      "/alien-profile.jpg",
-      "/alien-chat.jpg",
-      "/alien-call.jpg"
+      "alien-home.jpg",
+      "alien-profile.jpg",
+      "alien-chat.jpg",
+      "alien-call.jpg"
     ],
     detail: {
       overview: "A simulated dating app set in a distant future where humans face extinction from climate change and resource depletion. As new planets are discovered and interspecies relationships begin to form, the app connects creatures from across the galaxy. It explores love beyond planetary boundaries and how technology and emotion come together in the search for connection across the universe.",
@@ -165,8 +166,8 @@ const PROJECTS = [
     type: "Creative",
     image: "", // Add your image path here
     gallery: [
-      "/24game-home.jpg",
-      "/24game-output.jpg"
+      "24game-home.jpg",
+      "24game-output.jpg"
     ],
     // Updated: Added non-empty strings to enable the buttons
     liveUrl: "https://24gamesolver.streamlit.app/", 
@@ -532,6 +533,7 @@ const ProjectModal = ({ project, onClose }) => {
 
 const App = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#3E2723] font-sans selection:bg-[#D7CCC8] selection:text-[#3E2723] overflow-x-hidden">
@@ -596,17 +598,17 @@ const App = () => {
 
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#EBE0D0] shadow-sm transition-all duration-300">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center relative">
            <div className="flex items-center gap-4">
              {/* Adjusted size for the bar layout */}
              <a href="#" aria-label="Home">
                 <LogoKw className="h-16 w-auto" />
              </a>
              {/* --- UPDATED ROLE: "Creative Engineer" --- */}
-             <span className="hidden md:block font-serif italic text-xl text-[#5D4037]">Software Engineer</span>
+             <span className="font-serif italic text-lg md:text-xl text-[#5D4037]">Software Engineer</span>
            </div>
            
-           {/* Restored px-8 py-4 to make the bubble the original size */}
+           {/* Desktop Nav */}
            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5D4037] bg-white px-8 py-4 rounded-full border border-[#EBE0D0] shadow-sm">
              {['Work', 'About', 'Resume'].map((item) => (
                <a 
@@ -621,7 +623,34 @@ const App = () => {
                </a>
              ))}
            </div>
+
+           {/* Mobile Menu Toggle */}
+           <button 
+             className="md:hidden p-2 text-[#5D4037] hover:bg-[#F5F0E6] rounded-full transition-colors"
+             onClick={() => setIsMenuOpen(!isMenuOpen)}
+             aria-label="Toggle menu"
+           >
+             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+           </button>
         </div>
+
+        {/* Mobile Nav Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-[#EBE0D0] shadow-lg py-4 px-6 flex flex-col gap-2 animate-in slide-in-from-top-2">
+            {['Work', 'About', 'Resume'].map((item) => (
+               <a 
+                 key={item} 
+                 href={item === 'Resume' ? "Kat_Wongsrisoontorn_Resume.pdf" : `#${item.toLowerCase()}`} 
+                 target={item === 'Resume' ? "_blank" : "_self"}
+                 rel={item === 'Resume' ? "noopener noreferrer" : ""}
+                 className="block text-[#5D4037] font-medium py-3 px-4 hover:bg-[#F5F0E6] rounded-xl transition-colors"
+                 onClick={() => setIsMenuOpen(false)}
+               >
+                 {item}
+               </a>
+             ))}
+          </div>
+        )}
       </nav>
 
       {/* --- HERO --- */}
