@@ -100,22 +100,23 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "", // Add your image path here
+    // Updated image filenames
+    gallery: [
+      "ptt-output.png", 
+      "ptt-summary.png"
+    ],
     liveUrl: "",
     demoUrl: "",
     detail: {
-      challenge: "Feasibility reports for new energy projects required manual processing of massive client datasets, leading to days of delay and high potential for human error.",
-      solution: [
-        "Built a robust Python/Pandas engine to automate data cleaning and calculation for millions of rows.",
-        "Enhanced system reliability through rigorous A/B testing against legacy manual reports.",
-        "Implemented real-time data ingestion using Kafka streams."
-      ],
-      process: [
-        { title: "Data Mapping", desc: "Audited existing manual reports to map out complex data dependencies and calculation logic." },
-        { title: "Pipeline Build", desc: "Wrote vectorized Pandas scripts to clean, aggregate, and format data, replacing slow iteration loops." },
-        { title: "Reliability Testing", desc: "Conducted A/B testing to compare automated outputs with manual benchmarks, ensuring 99.9% accuracy." },
-        { title: "Impact", desc: "Reduced report generation time from 3 days to ~15 minutes, achieving a 900% productivity increase." }
-      ],
-      stack: ["Python", "Pandas", "Kafka", "Git", "Linux"]
+      overview: "A Python-based internal tool that automatically generates data reports from raw input files. It organizes, calculates, and formats results into clear summaries that teams can review easily. The system replaces a slow manual reporting process, reducing repetitive work and improving accuracy and efficiency for the operations team.",
+      
+      background: "I developed this tool during my internship at PTT Group as part of the On-ion EV Charger operations team.\n\n**The Problem**\nThe team’s reporting workflow required manually compiling and analyzing data from thousands of records, which often took days to finish.\n\n**The Solution**\nI wanted to simplify that process by building an automated solution that could generate structured reports in seconds. The goal was to make data review faster, more consistent, and easier to share across teams.",
+      
+      processText: "**Automated Workflow**\nI built a Python script that automates the reporting workflow for the operations team. The program reads booking data, cleans and filters invalid entries, calculates payment amounts, and generates summarized reports automatically.\n\n**Data Processing**\nIt removes irrelevant data, computes total and refund-adjusted values for each transaction, and adds a summary section to highlight key metrics. The goal was to ensure that every report contains accurate and usable information and reduce manual effort in the process.",
+      
+      outcome: "**Impact**\nThe tool automated a manual reporting process and increased efficiency by over 900%. It helped the operations team save hours of repetitive work, reduced human errors, and was later integrated into the backend system of the EV charging app.\n\n**Growth**\nThe project expanded my understanding of data automation, error handling, and how internal tools can create meaningful impact in real workflows.",
+      
+      stack: ["Python", "Pandas", "NumPy", "Microsoft Excel"]
     }
   },
   {
@@ -406,7 +407,7 @@ const ProjectModal = ({ project, onClose }) => {
         <div className="p-8 md:p-10 space-y-10">
           
           {isRichContent ? (
-            /* --- NEW RICH CONTENT LAYOUT (Jarvis) --- */
+            /* --- NEW RICH CONTENT LAYOUT (Jarvis & Report Gen) --- */
             <>
               {/* Overview */}
               <div>
@@ -428,7 +429,7 @@ const ProjectModal = ({ project, onClose }) => {
                  </p>
               </div>
 
-              {/* Image Gallery (4 pics) - Updated with Expand Logic */}
+              {/* Image Gallery - Updated with Expand Logic */}
               {project.gallery && (
                 <div>
                    <h3 className="font-serif text-xl mb-4 text-[#3E2723] opacity-80">Snapshots</h3>
