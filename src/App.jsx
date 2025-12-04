@@ -68,7 +68,8 @@ const PROJECTS = [
     rotation: "hover:rotate-1",
     type: "Engineering",
     image: "", // Main cover image
-    docUrl: "#", 
+    // Updated documentation link
+    docUrl: "SCBX-presentation.pdf", 
     gallery: [
        "jarvis-workflow.png",
        "jarvis-tools.png",
@@ -100,7 +101,7 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "", // Add your image path here
-    docUrl: "#",
+    docUrl: "PTT-presentation.pdf",
     gallery: [
       "ptt-output.png", 
       "ptt-summary.png"
@@ -130,10 +131,10 @@ const PROJECTS = [
     rotation: "hover:-rotate-2",
     type: "Creative",
     image: "", // Add your image path here
-    // Added placeholders for githubUrl and demoUrl (Video Documentation)
-    githubUrl: "#",
-    liveUrl: "https://p5js.org/", 
-    demoUrl: "#", // Serves as Video Documentation
+    // Updated links
+    githubUrl: "https://github.com/katparins/alien-dating",
+    liveUrl: "https://editor.p5js.org/pw2313/full/VdRf5RFUm", 
+    demoUrl: "https://youtu.be/xujbxAD08Ts", // Serves as Video Documentation
     gallery: [
       "alien-home.jpg",
       "alien-profile.jpg",
@@ -168,8 +169,8 @@ const PROJECTS = [
       "24game-output.jpg"
     ],
     // Updated: Added non-empty strings to enable the buttons
-    liveUrl: "#", 
-    githubUrl: "#",
+    liveUrl: "https://24gamesolver.streamlit.app/", 
+    githubUrl: "https://github.com/katparins/24gamesolver",
     demoUrl: "",
     detail: {
       overview: "A web app that finds every possible way to make 24 from four numbers. It explores all combinations, covers edge cases, and avoids floating point errors.",
@@ -640,7 +641,7 @@ const App = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-[#5D4037] leading-relaxed max-w-2xl mb-10 font-light">
-              I build digital experiences shaped by <span className="font-medium text-[#3E2723]">creativity, engineering, and data</span>, focusing on human centered design and tools that support better work.
+              I’m a software engineer who builds digital experiences shaped by <span className="font-medium text-[#3E2723]">creativity, engineering, and data</span>, with a focus on human-centered design and tools that support better work.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
