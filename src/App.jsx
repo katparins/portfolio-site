@@ -31,8 +31,8 @@ import {
 // --- ASSETS ---
 // NOTE: To ensure this runs in both the preview and your local environment (without import errors),
 // please ensure 'kw-logo.png' and 'graphic-kat.png' are placed in your 'public/' folder.
-const logoKw = "kw-logo.png";
-const avatarKat = "graphic-kat.png";
+const logoKw = "/kw-logo.png";
+const avatarKat = "/graphic-kat.png";
 
 const LogoKw = ({ className = "h-12 w-auto" }) => (
   <img 
@@ -69,12 +69,12 @@ const PROJECTS = [
     type: "Engineering",
     image: "", // Main cover image
     // Updated documentation link
-    docUrl: "SCBX-presentation.pdf", 
+    docUrl: "/SCBX-presentation.pdf", 
     gallery: [
-       "jarvis-workflow.png",
-       "jarvis-tools.png",
-       "jarvis-decision.png",
-       "jarvis-output.png"
+       "/jarvis-workflow.png",
+       "/jarvis-tools.png",
+       "/jarvis-decision.png",
+       "/jarvis-output.png"
     ],
     liveUrl: "", 
     demoUrl: "", 
@@ -101,10 +101,10 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "", // Add your image path here
-    docUrl: "PTT-presentation.pdf",
+    docUrl: "/PTT-presentation.pdf",
     gallery: [
-      "ptt-output.png", 
-      "ptt-summary.png"
+      "/ptt-output.png", 
+      "/ptt-summary.png"
     ],
     liveUrl: "",
     demoUrl: "",
@@ -136,10 +136,10 @@ const PROJECTS = [
     liveUrl: "https://editor.p5js.org/pw2313/full/VdRf5RFUm", 
     demoUrl: "https://youtu.be/xujbxAD08Ts", // Serves as Video Documentation
     gallery: [
-      "alien-home.jpg",
-      "alien-profile.jpg",
-      "alien-chat.jpg",
-      "alien-call.jpg"
+      "/alien-home.jpg",
+      "/alien-profile.jpg",
+      "/alien-chat.jpg",
+      "/alien-call.jpg"
     ],
     detail: {
       overview: "A simulated dating app set in a distant future where humans face extinction from climate change and resource depletion. As new planets are discovered and interspecies relationships begin to form, the app connects creatures from across the galaxy. It explores love beyond planetary boundaries and how technology and emotion come together in the search for connection across the universe.",
@@ -165,8 +165,8 @@ const PROJECTS = [
     type: "Creative",
     image: "", // Add your image path here
     gallery: [
-      "24game-home.jpg",
-      "24game-output.jpg"
+      "/24game-home.jpg",
+      "/24game-output.jpg"
     ],
     // Updated: Added non-empty strings to enable the buttons
     liveUrl: "https://24gamesolver.streamlit.app/", 
