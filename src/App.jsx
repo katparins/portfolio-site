@@ -245,7 +245,7 @@ const ProjectCard = ({ project, onClick }) => {
 
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 500); // 0.5 seconds delay
+    }, 800); // 0.8 seconds delay
 
     return () => clearInterval(interval);
   }, [images.length, isHovering]);
@@ -266,12 +266,16 @@ const ProjectCard = ({ project, onClick }) => {
            {/* IMAGE SECTION - Stacks on Top */}
            <div className="h-56 w-full relative overflow-hidden bg-white/20 shrink-0">
               {images.length > 0 ? (
-                <img 
-                  key={currentImageIndex} // Key change triggers animation
-                  src={images[currentImageIndex]} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transition-all duration-1000 animate-in fade-in group-hover:scale-105" 
-                />
+                images.map((img, idx) => (
+                  <img 
+                    key={idx}
+                    src={img} 
+                    alt={`${project.title} preview ${idx}`} 
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
+                      idx === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                    } group-hover:scale-105 transition-transform duration-[2000ms]`} 
+                  />
+                ))
               ) : (
                 /* DEFAULT PLACEHOLDER ART */
                 <div className="w-full h-full opacity-60 relative flex items-center justify-center">
@@ -285,7 +289,7 @@ const ProjectCard = ({ project, onClick }) => {
               
               {/* Optional: Indicator Dots to show slideshow is active */}
               {images.length > 1 && isHovering && (
-                <div className="absolute bottom-3 right-3 flex gap-1.5 z-10 animate-in fade-in duration-300">
+                <div className="absolute bottom-3 right-3 flex gap-1.5 z-20 animate-in fade-in duration-300">
                   {images.map((_, idx) => (
                     <div 
                       key={idx} 
@@ -297,7 +301,7 @@ const ProjectCard = ({ project, onClick }) => {
            </div>
 
            {/* CONTENT SECTION - Stacks Below */}
-           <div className="p-8 md:p-10 bg-white/60 backdrop-blur-xl w-full transition-all duration-500 group-hover:bg-white/95 border-t border-white/20 flex-1 flex flex-col justify-between">
+           <div className="p-8 md:p-10 bg-white/60 backdrop-blur-xl w-full transition-all duration-500 group-hover:bg-white/95 border-t border-white/20 flex-1 flex flex-col justify-between relative z-20">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-2 flex-wrap">
