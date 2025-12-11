@@ -68,7 +68,7 @@ const PROJECTS = [
     textColor: "text-[#5D4037]",
     rotation: "hover:rotate-1",
     type: "Engineering",
-    image: "", // Main cover image
+    image: "jarvis-workflow.png", // Main cover image updated
     // Updated documentation link
     docUrl: "SCBX-presentation.pdf", 
     gallery: [
@@ -101,7 +101,7 @@ const PROJECTS = [
     textColor: "text-[#3E2723]",
     rotation: "hover:-rotate-1",
     type: "Engineering",
-    image: "", // Add your image path here
+    image: "ptt-output.png", // Main cover image updated
     docUrl: "PTT-presentation.pdf",
     gallery: [
       "ptt-output.png", 
@@ -131,7 +131,7 @@ const PROJECTS = [
     textColor: "text-[#5D4037]",
     rotation: "hover:-rotate-2",
     type: "Creative",
-    image: "", // Add your image path here
+    image: "alien-home.jpg", // Main cover image updated
     // Updated links
     githubUrl: "https://github.com/katparins/alien-dating",
     liveUrl: "https://editor.p5js.org/pw2313/full/VdRf5RFUm", 
@@ -164,7 +164,7 @@ const PROJECTS = [
     textColor: "text-[#8D6E63]",
     rotation: "hover:rotate-1",
     type: "Creative",
-    image: "", // Add your image path here
+    image: "24game-home.jpg", // Main cover image updated
     gallery: [
       "24game-home.jpg",
       "24game-output.jpg"
@@ -226,6 +226,101 @@ const TiltCard = ({ children, className, rotation }) => {
     >
       {children}
     </div>
+  );
+};
+
+// NEW COMPONENT: ProjectCard to handle image slideshow logic
+const ProjectCard = ({ project, onClick }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const images = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+
+  useEffect(() => {
+    // Only set up interval if there's more than one image AND we are hovering
+    if (images.length <= 1 || !isHovering) {
+        setCurrentImageIndex(0); // Reset to first image (cover) when not hovering
+        return;
+    }
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 500); // 0.5 seconds delay
+
+    return () => clearInterval(interval);
+  }, [images.length, isHovering]);
+
+  return (
+    <TiltCard 
+      className={`group cursor-pointer ${project.size === 'large' ? 'md:col-span-2' : ''}`}
+      rotation={project.rotation}
+    >
+      <div 
+        onClick={onClick}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        className="bg-white rounded-[2.5rem] p-3 shadow-sm hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-[#EBE0D0]"
+      >
+        <div className={`rounded-[2rem] overflow-hidden relative ${project.color} transition-colors duration-500 flex flex-col h-full`}>
+           
+           {/* IMAGE SECTION - Stacks on Top */}
+           <div className="h-56 w-full relative overflow-hidden bg-white/20 shrink-0">
+              {images.length > 0 ? (
+                <img 
+                  key={currentImageIndex} // Key change triggers animation
+                  src={images[currentImageIndex]} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover transition-all duration-1000 animate-in fade-in group-hover:scale-105" 
+                />
+              ) : (
+                /* DEFAULT PLACEHOLDER ART */
+                <div className="w-full h-full opacity-60 relative flex items-center justify-center">
+                   <div className="absolute inset-0 flex items-center justify-center text-[#3E2723] opacity-20 transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12">
+                      {project.type === 'Engineering' ? <Cpu size={140} /> : <Palette size={140} />}
+                   </div>
+                   {/* Pattern Overlay */}
+                   <div className="absolute inset-0 bg-[radial-gradient(#3E2723_1px,transparent_1px)] [background-size:20px_20px] opacity-5"></div>
+                </div>
+              )}
+              
+              {/* Optional: Indicator Dots to show slideshow is active */}
+              {images.length > 1 && isHovering && (
+                <div className="absolute bottom-3 right-3 flex gap-1.5 z-10 animate-in fade-in duration-300">
+                  {images.map((_, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${idx === currentImageIndex ? 'bg-white w-3' : 'bg-white/50'}`}
+                    />
+                  ))}
+                </div>
+              )}
+           </div>
+
+           {/* CONTENT SECTION - Stacks Below */}
+           <div className="p-8 md:p-10 bg-white/60 backdrop-blur-xl w-full transition-all duration-500 group-hover:bg-white/95 border-t border-white/20 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex gap-2 flex-wrap">
+                    {/* Role Badge */}
+                    <span className="bg-[#FFF] px-3 py-1 rounded-lg text-[10px] uppercase tracking-widest font-bold text-[#5D4037] shadow-sm border border-[#EBE0D0]">
+                      {project.role}
+                    </span>
+                  </div>
+                  <div className="bg-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 shadow-md">
+                    <ArrowUpRight size={20} className="text-[#3E2723]" />
+                  </div>
+                </div>
+
+                <h3 className="text-3xl font-serif font-bold text-[#3E2723] mb-2 group-hover:translate-x-1 transition-transform">
+                  {project.title}
+                </h3>
+                <p className="text-[#5D4037] text-sm md:text-base font-medium opacity-80">
+                  {project.shortDesc}
+                </p>
+              </div>
+           </div>
+        </div>
+      </div>
+    </TiltCard>
   );
 };
 
@@ -337,12 +432,7 @@ const ProjectModal = ({ project, onClose }) => {
            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/30 rounded-full blur-2xl"></div>
            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white/40 to-transparent"></div>
            
-           {/* PROJECT IMAGE IN HEADER */}
-           {project.image && (
-             <div className="absolute inset-0 z-0">
-               <img src={project.image} alt="" className="w-full h-full object-cover opacity-20 mix-blend-multiply" />
-             </div>
-           )}
+           {/* PROJECT IMAGE IN HEADER REMOVED HERE */}
 
            <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-white/50 hover:bg-white rounded-full transition-all hover:rotate-90 text-[#5D4037] shadow-sm z-10">
             <X size={20} />
@@ -710,61 +800,11 @@ const App = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {PROJECTS.map((project) => (
-            <TiltCard 
+            <ProjectCard 
               key={project.id} 
-              className={`group cursor-pointer ${project.size === 'large' ? 'md:col-span-2' : ''}`}
-              rotation={project.rotation}
-            >
-              <div 
-                onClick={() => setSelectedProject(project)}
-                className="bg-white rounded-[2.5rem] p-3 shadow-sm hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-[#EBE0D0]"
-              >
-                <div className={`rounded-[2rem] overflow-hidden relative ${project.color} transition-colors duration-500`}>
-                   
-                   {/* IMAGE OR PLACEHOLDER AREA */}
-                   <div className="h-64 w-full relative overflow-hidden bg-white/20">
-                      {project.image ? (
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                        />
-                      ) : (
-                        /* DEFAULT PLACEHOLDER ART */
-                        <div className="w-full h-full opacity-60 relative flex items-center justify-center">
-                           <div className="absolute inset-0 flex items-center justify-center text-[#3E2723] opacity-20 transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12">
-                              {project.type === 'Engineering' ? <Cpu size={140} /> : <Palette size={140} />}
-                           </div>
-                           {/* Pattern Overlay */}
-                           <div className="absolute inset-0 bg-[radial-gradient(#3E2723_1px,transparent_1px)] [background-size:20px_20px] opacity-5"></div>
-                        </div>
-                      )}
-                   </div>
-
-                   {/* Card Content */}
-                   <div className="p-8 md:p-10 bg-white/60 backdrop-blur-xl absolute bottom-0 w-full transition-all duration-500 group-hover:bg-white/95 border-t border-white/20">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex gap-2 flex-wrap">
-                          {/* NEW: Display Role on Card as well */}
-                          <span className="bg-[#FFF] px-3 py-1 rounded-lg text-[10px] uppercase tracking-widest font-bold text-[#5D4037] shadow-sm border border-[#EBE0D0]">
-                            {project.role}
-                          </span>
-                        </div>
-                        <div className="bg-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 shadow-md">
-                          <ArrowUpRight size={20} className="text-[#3E2723]" />
-                        </div>
-                      </div>
-
-                      <h3 className="text-3xl font-serif font-bold text-[#3E2723] mb-2 group-hover:translate-x-1 transition-transform">
-                        {project.title}
-                      </h3>
-                      <p className="text-[#5D4037] text-sm md:text-base font-medium opacity-80">
-                        {project.shortDesc}
-                      </p>
-                   </div>
-                </div>
-              </div>
-            </TiltCard>
+              project={project} 
+              onClick={() => setSelectedProject(project)}
+            />
           ))}
         </div>
       </section>
@@ -818,7 +858,7 @@ const App = () => {
            <div className="mb-8">
              <Zap className="mx-auto text-[#D7CCC8] mb-4" size={32} />
              <h2 className="text-3xl font-serif mb-8 text-[#3E2723]">Let's create something cute.</h2>
-             <a href="mailto:pw2313@nyu.edu" className="inline-block bg-[#3E2723] text-[#FDFBF7] px-8 py-4 rounded-full font-medium hover:bg-[#5D4037] transition-all hover:shadow-lg transform hover:-translate-y-1">
+             <a href="mailto:katwong.work@gmail.com" className="inline-block bg-[#3E2723] text-[#FDFBF7] px-8 py-4 rounded-full font-medium hover:bg-[#5D4037] transition-all hover:shadow-lg transform hover:-translate-y-1">
                Say Hello 🤍
              </a>
            </div>
