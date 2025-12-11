@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   Lightbulb,
   Maximize2,
+  Minimize2, // Added for full screen toggle
   ChevronLeft,
   ChevronRight,
   FileText,
@@ -336,6 +337,8 @@ const Sticker = ({ icon, label, color, rotate }) => (
 const ProjectModal = ({ project, onClose }) => {
   // NEW: State for the lightbox expanded image index (null when closed)
   const [expandedIndex, setExpandedIndex] = useState(null);
+  // NEW: Full screen state
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   if (!project) return null;
   
@@ -369,8 +372,13 @@ const ProjectModal = ({ project, onClose }) => {
     });
   };
 
+  // Conditional classes based on full screen state
+  const modalClasses = isFullScreen 
+    ? "fixed inset-0 z-[65] w-full h-full bg-[#FDFBF7] overflow-y-auto animate-in fade-in duration-300"
+    : "bg-[#FDFBF7] w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5rem] shadow-2xl relative animate-in fade-in zoom-in duration-300 border-4 border-white ring-1 ring-[#EBE0D0]";
+
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-md bg-[#3E2723]/10">
+    <div className={`fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-md bg-[#3E2723]/10 ${isFullScreen ? 'p-0' : ''}`}>
       
       {/* Lightbox Overlay */}
       {expandedIndex !== null && project.gallery && (
@@ -421,11 +429,15 @@ const ProjectModal = ({ project, onClose }) => {
         </div>
       )}
 
-      <div 
-        className="absolute inset-0" 
-        onClick={onClose} 
-      />
-      <div className="bg-[#FDFBF7] w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5rem] shadow-2xl relative animate-in fade-in zoom-in duration-300 border-4 border-white ring-1 ring-[#EBE0D0]">
+      {/* Backdrop Click handler (only if not full screen) */}
+      {!isFullScreen && (
+        <div 
+          className="absolute inset-0" 
+          onClick={onClose} 
+        />
+      )}
+
+      <div className={modalClasses}>
         
         {/* Header */}
         <div className={`p-10 ${project.color} relative overflow-hidden`}>
@@ -434,9 +446,20 @@ const ProjectModal = ({ project, onClose }) => {
            
            {/* PROJECT IMAGE IN HEADER REMOVED HERE */}
 
-           <button onClick={onClose} className="absolute top-6 right-6 p-2 bg-white/50 hover:bg-white rounded-full transition-all hover:rotate-90 text-[#5D4037] shadow-sm z-10">
-            <X size={20} />
-           </button>
+           {/* CONTROLS (Full Screen Toggle + Close) */}
+           <div className="absolute top-6 right-6 flex gap-4 z-10">
+             <button 
+               onClick={() => setIsFullScreen(!isFullScreen)} 
+               className="p-2 bg-white/50 hover:bg-white rounded-full transition-all text-[#5D4037] shadow-sm hover:scale-110"
+               title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
+             >
+               {isFullScreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+             </button>
+
+             <button onClick={onClose} className="p-2 bg-white/50 hover:bg-white rounded-full transition-all hover:rotate-90 text-[#5D4037] shadow-sm hover:scale-110">
+              <X size={20} />
+             </button>
+           </div>
           
           <div className="relative z-10">
             <span className={`inline-block px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-xs font-bold uppercase tracking-wider mb-4 ${project.textColor} shadow-sm`}>
