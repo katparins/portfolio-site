@@ -35,6 +35,7 @@ import {
 // please ensure 'kw-logo.png' and 'graphic-kat.png' are placed in your 'public/' folder.
 const logoKw = "kw-logo.png";
 const avatarKat = "graphic-kat.png";
+const headshot = "headshot.jpeg";
 
 const LogoKw = ({ className = "h-12 w-auto" }) => (
   <img 
@@ -844,9 +845,27 @@ const App = () => {
                <Heart className="text-[#D7CCC8] fill-[#D7CCC8]" size={20} />
              </div>
              <h2 className="text-4xl md:text-5xl font-serif mb-8 text-[#3E2723]">A Little About Me</h2>
-             <p className="text-[#5D4037] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light">
-               I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>, a Software Engineer who blends <span className="custom-underline font-medium text-[#3E2723]">creativity and code</span> to build intuitive, human centered systems. When I’m not coding, you’ll probably find me with jasmine green tea, updating my Miffy collection, or looking for new food spots to try.
-             </p>
+             
+             {/* Added Headshot */}
+             <div className="flex justify-center mb-8">
+               <img 
+                 src={headshot} 
+                 alt="Kat Wongsrisoontorn" 
+                 className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-md hover:scale-105 transition-transform duration-500" 
+               />
+             </div>
+
+             <div className="text-[#5D4037] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light flex flex-col gap-6">
+               <p>
+                 I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>, a software engineer who blends <span className="custom-underline font-medium text-[#3E2723]">creativity and code</span> to build intuitive, human-centered systems.
+               </p>
+               <p>
+                 I’m currently studying <span className="font-medium text-[#3E2723]">Computer Science and Integrated Design and Media at NYU</span>. With a background in design, I bring a creative approach to problem-solving and engineering. My work includes <span className="font-medium text-[#3E2723]">full-stack development, UX research, and data driven tools</span>, from interactive web applications to internal systems that improve efficiency and user experience. I’m passionate about building digital experiences that feel seamless and intentional.
+               </p>
+               <p>
+                 When I’m not coding, you’ll probably find me with jasmine green tea, updating my Miffy collection, or looking for new food spots to try.
+               </p>
+             </div>
           </div>
 
           {/* Sticker Grid - Updated Colors */}
