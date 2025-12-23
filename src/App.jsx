@@ -897,7 +897,7 @@ const App = () => {
            <div className="mb-8">
              <Zap className="mx-auto text-[#D7CCC8] mb-4" size={32} />
              <h2 className="text-3xl font-serif mb-8 text-[#3E2723]">Let's create something cute.</h2>
-             <a href="mailto:katwong.work@gmail.com" className="inline-block bg-[#3E2723] text-[#FDFBF7] px-8 py-4 rounded-full font-medium hover:bg-[#5D4037] transition-all hover:shadow-lg transform hover:-translate-y-1">
+             <a href="mailto:pw2313@nyu.edu" className="inline-block bg-[#3E2723] text-[#FDFBF7] px-8 py-4 rounded-full font-medium hover:bg-[#5D4037] transition-all hover:shadow-lg transform hover:-translate-y-1">
                Say Hello 💌
              </a>
            </div>
