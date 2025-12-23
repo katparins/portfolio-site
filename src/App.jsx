@@ -35,7 +35,7 @@ import {
 // please ensure 'kw-logo.png' and 'graphic-kat.png' are placed in your 'public/' folder.
 const logoKw = "kw-logo.png";
 const avatarKat = "graphic-kat.png";
-const headshot = "headshot.jpeg";
+// Removed headshot constant
 
 const LogoKw = ({ className = "h-12 w-auto" }) => (
   <img 
@@ -846,14 +846,7 @@ const App = () => {
              </div>
              <h2 className="text-4xl md:text-5xl font-serif mb-8 text-[#3E2723]">A Little About Me</h2>
              
-             {/* Added Headshot */}
-             <div className="flex justify-center mb-8">
-               <img 
-                 src={headshot} 
-                 alt="Kat Wongsrisoontorn" 
-                 className="w-40 h-40 object-cover rounded-full border-4 border-white shadow-md hover:scale-105 transition-transform duration-500" 
-               />
-             </div>
+             {/* Removed Headshot */}
 
              <div className="text-[#5D4037] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light flex flex-col gap-6">
                <p>
