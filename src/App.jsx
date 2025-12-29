@@ -722,8 +722,6 @@ const App = () => {
              <a href="#" aria-label="Home">
                 <LogoKw className="h-16 w-auto" />
              </a>
-             {/* --- UPDATED ROLE: "Creative Engineer" --- */}
-             <span className="font-serif italic text-lg md:text-xl text-[#5D4037]">Software Engineer</span>
            </div>
            
            {/* Desktop Nav */}
@@ -850,10 +848,10 @@ const App = () => {
 
              <div className="text-[#5D4037] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light flex flex-col gap-6">
                <p>
-                 I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>, a software engineer who blends <span className="custom-underline font-medium text-[#3E2723]">creativity and code</span> to build intuitive, human-centered systems.
+                 I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>. I work at the intersection of <span className="custom-underline font-medium text-[#3E2723]">creativity and technology</span> to build intuitive, human-centered systems.
                </p>
                <p>
-                 I’m currently studying <span className="font-medium text-[#3E2723]">Computer Science and Integrated Design and Media at NYU</span>. With a background in design, I bring a creative approach to problem-solving and engineering. My work includes <span className="font-medium text-[#3E2723]">full-stack development, UX research, and data driven tools</span>, from interactive web applications to internal systems that improve efficiency and user experience. I’m passionate about building digital experiences that feel seamless and intentional.
+                 I’m currently studying <span className="font-medium text-[#3E2723]">Computer Science and Integrated Design and Media at NYU</span>. With a background in design, I bring a creative approach to problem-solving and engineering. My work includes <span className="font-medium text-[#3E2723]">full-stack development, UX research, and data-driven tools,</span> from interactive web applications to internal systems that support better workflows and user experiences. I’m passionate about building digital products that feel seamless and intentional.
                </p>
                <p>
                  When I’m not coding, you’ll probably find me with jasmine green tea, updating my Miffy collection, or looking for new food spots to try.
