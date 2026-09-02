@@ -56,6 +56,37 @@ const AvatarKat = ({ className = "w-64 h-64" }) => (
 // --- DATA ---
 const PROJECTS = [
   {
+    id: "voice-quiz",
+    title: "Realtime Voice Quiz",
+    role: "Software Engineering",
+    shortDesc: "A conversational quizzing experience in Adobe Acrobat Mobile that uses real-time Voice AI to encourage active learning.",
+    tags: ["iOS", "Voice AI", "Swift"],
+    color: "bg-[#EFE8DC]", 
+    textColor: "text-[#3E2723]", 
+    rotation: "hover:rotate-1",
+    type: "Engineering",
+    image: "acrobat-cover.jpg",
+    docUrl: "Adobe-presentation.pdf", 
+    liveUrl: "", 
+    githubUrl: "", 
+    demoUrl: "",
+    gallery: [
+      "acrobat-architecture.jpg",
+      "acrobat-ui.jpg"
+    ],
+    detail: {
+      overview: "A conversational quizzing experience in Adobe Acrobat Mobile. Through real-time Voice AI, users can complement document reading with interactive quizzes on a specific page, section, the entire document, or any topic of interest. The natural, human-like interaction encourages active learning, helping users reinforce their understanding and improve retention.",
+      
+      background: "I designed and developed this project during my software engineering internship at Adobe as part of the Document Cloud Mobile team.\n\n**The Problem**\nThe existing quiz experience was static and screen-based. Users had to tap through each question, could not ask for hints or follow-ups, and had to leave the document they were reading to complete a quiz. It also did not support background conversations when the screen was locked.\n\n**The Solution**\nI wanted to make studying feel more like a conversation. I built a voice-first quiz where users can generate questions from a specific page, section, entire document, or any topic of interest. Through real-time Voice AI, users can answer questions, ask for hints or explanations, revisit previous questions, and navigate the quiz by voice, while still having the option to tap the screen. It also supports background conversations when the screen was locked for a hands-free experience.",
+      
+      processText: "**Design & Development**\nI started by interviewing students to understand their study habits and what would make a quiz experience more engaging. I used those insights to sketch and refine the design before building the interface in Swift and SwiftUI. I iterated on the text-based LLM prompt that generates quiz questions and experimented with the Realtime voice model’s prompt to make voice interactions feel more natural. I also used ActivityKit to support the quiz on the lock screen for a hands-free experience.\n\n**System Architecture**\nI connected the voice experience across GPT-Realtime, the server, and the Acrobat app through five custom tools. When a user speaks, GPT-Realtime responds through voice and can trigger actions in the app, such as moving to the next question or submitting an answer. The model guides the interaction, while the app handles the quiz logic and state. Users can also interact directly with the app by tapping, while the app sends its state back to the server so the model stays in sync with the current quiz context.",
+      
+      outcome: "**Impact**\nRealtime Voice Quiz transformed a static quiz flow into a hands-free, conversational learning experience inside Acrobat Mobile. The feature was released through TestFlight for internal testing and scheduled for continued development in upcoming sprints. I also presented the project to the broader organization.\n\n**Growth**\nThis project taught me to build a feature end to end, from user research and design to development and testing. I learned to work across iOS, backend integration, AI tool calling, and system architecture. As my first experience developing for mobile, it also pushed me to learn new technologies, work through ambiguity, and grow more resilient as an engineer.",
+      
+      stack: ["Swift", "SwiftUI", "ActivityKit", "GPT-Realtime", "Azure OpenAI", "Python", "Xcode"]
+    }
+  },
+  {
     id: "moodmap",
     title: "MoodMap",
     role: "Full-Stack Development",
@@ -98,7 +129,7 @@ const PROJECTS = [
     tags: ["AI", "GCP", "LangChain"],
     color: "bg-[#F5F0E6]", 
     textColor: "text-[#5D4037]",
-    rotation: "hover:rotate-1",
+    rotation: "hover:-rotate-1",
     type: "Engineering",
     image: "jarvis-workflow.png", 
     docUrl: "SCBX-presentation.pdf", 
@@ -260,7 +291,11 @@ const TiltCard = ({ children, className, rotation }) => {
 const ProjectCard = ({ project, onClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
-  const images = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+  
+  // Ensures cover image is the primary cover (index 0) on the home page card
+  const images = project.gallery && project.gallery.length > 0 
+    ? (project.gallery.includes(project.image) ? project.gallery : [project.image, ...project.gallery])
+    : [project.image];
 
   useEffect(() => {
     if (images.length <= 1 || !isHovering) {
