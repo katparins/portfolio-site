@@ -23,7 +23,7 @@ import {
   CheckCircle2,
   Lightbulb,
   Maximize2,
-  Minimize2, // Added for full screen toggle
+  Minimize2,
   ChevronLeft,
   ChevronRight,
   FileText,
@@ -31,11 +31,8 @@ import {
 } from 'lucide-react';
 
 // --- ASSETS ---
-// NOTE: To ensure this runs in both the preview and your local environment (without import errors),
-// please ensure 'kw-logo.png' and 'graphic-kat.png' are placed in your 'public/' folder.
 const logoKw = "kw-logo.png";
 const avatarKat = "graphic-kat.png";
-// Removed headshot constant
 
 const LogoKw = ({ className = "h-12 w-auto" }) => (
   <img 
@@ -47,7 +44,6 @@ const LogoKw = ({ className = "h-12 w-auto" }) => (
 
 const AvatarKat = ({ className = "w-64 h-64" }) => (
   <div className={`relative ${className}`}>
-     {/* Warm Vanilla/Gold Glow Background */}
     <div className="absolute inset-0 bg-[#EBE0D0] rounded-full blur-3xl opacity-60 animate-pulse"></div>
     <img 
       src={avatarKat} 
@@ -58,20 +54,53 @@ const AvatarKat = ({ className = "w-64 h-64" }) => (
 );
 
 // --- DATA ---
-
 const PROJECTS = [
+  {
+    id: "moodmap",
+    title: "MoodMap",
+    role: "Full-Stack Development",
+    shortDesc: "An interactive web application that visualizes emotions across locations in real time, revealing patterns in how people experience different places.",
+    tags: ["Map", "Firebase", "Design"],
+    color: "bg-[#F3EFE9]", 
+    textColor: "text-[#4A3B32]", 
+    rotation: "hover:-rotate-1",
+    type: "Creative",
+    image: "MoodMap-poster.png",
+    docUrl: "MoodMap-documentation.pdf", 
+    liveUrl: "https://moodmap.site/", 
+    githubUrl: "https://github.com/katparins/MoodMap", 
+    demoUrl: "https://youtube.com/playlist?list=PLS5OCFJNzlOU&si=Fie9n0-lLVhhpm8Q",
+    gallery: [
+       "MoodMap-poster.png",
+       "MoodMap-mood.jpg",
+       "MoodMap-comment.jpg",
+       "MoodMap-filter1.jpg",
+       "MoodMap-filter2.jpg",
+       "MoodMap-dark.jpg"
+    ],
+    detail: {
+      overview: "An interactive web application that allows people to share how they feel at a location and see how others feel through a shared map. Users can filter entries by mood, day, and time to uncover patterns across locations. The project explores how spaces can shape the way we feel and how people can experience similar emotions in the same places.",
+      
+      background: "I designed and developed MoodMap as my Senior Project in Integrated Design & Media at NYU and presented it at the IDM Showcase.\n\n**The Inspiration**\nI was inspired to build this project by my own experience trying to find a sense of belonging across different environments. I became interested in how the same place can be experienced in so many ways depending on the person. I wanted to create something that could make those perspectives visible and create a sense of connection, even among strangers.\n\n**The Concept**\nMoodMap turns individual emotions into a collective view of how people experience their surroundings. By bringing these feelings together on a map, I wanted to reveal patterns that are usually invisible and show how differently the same environment can be experienced.",
+      
+      processText: "**Interaction Design**\nI designed MoodMap to make sharing emotions feel simple and approachable. Users can choose from ten illustrated emotions, add an optional comment, and see their response appear on the map. I also added sound feedback and accessible interactions to make the experience feel more intuitive and engaging.\n\nI intentionally designed MoodMap without likes, follower counts, or public profiles because I did not want emotions to become another form of social validation. Contributions remain anonymous and locations are kept approximate, allowing users to express how they feel without the pressure of being judged or compared to others.\n\n**Development**\nI built MoodMap using Leaflet.js for map visualization and Firebase for storing and synchronizing user submissions. Users can explore emotional patterns by filtering entries by emotion, day, and time of day, read comments from others, and switch between light and dark modes. I also implemented geolocation and marker clustering to keep the map responsive as more entries are added.",
+      
+      outcome: "**Impact**\nMoodMap reached 200+ active users, with people contributing emotions and comments and exploring how others felt across different locations and times. As more people participated, the map revealed shared patterns and created a collective view of how different environments are experienced.\n\n**Growth**\nThis project brought together the two sides of how I like to build: design and software engineering. I worked through the full process from ideation and user research to character design, prototyping, database integration, and deployment. It also pushed me to think more about how the choices I make as a designer and engineer shape the way people interact with a product.",
+      
+      stack: ["JavaScript", "Leaflet.js", "Firebase", "Tailwind CSS", "HTML/CSS", "Figma"]
+    }
+  },
   {
     id: "jarvis",
     title: "Jarvis Assistant",
     role: "Data Engineering",
     shortDesc: "An AI-powered tool that automatically generates clear, structured descriptions for BigQuery tables and columns using LLMs.",
     tags: ["AI", "GCP", "LangChain"],
-    color: "bg-[#F5F0E6]", // Cream/Almond
+    color: "bg-[#F5F0E6]", 
     textColor: "text-[#5D4037]",
     rotation: "hover:rotate-1",
     type: "Engineering",
-    image: "jarvis-workflow.png", // Main cover image updated
-    // Updated documentation link
+    image: "jarvis-workflow.png", 
     docUrl: "SCBX-presentation.pdf", 
     gallery: [
        "jarvis-workflow.png",
@@ -99,11 +128,11 @@ const PROJECTS = [
     role: "Software Engineering",
     shortDesc: "A Python-based report automation tool that processes high-volume data with Pandas and improves reporting workflows by over 900 percent.",
     tags: ["Data", "Automation", "Python"],
-    color: "bg-[#EBE0D0]", // Latte/Beige
+    color: "bg-[#EBE0D0]", 
     textColor: "text-[#3E2723]",
     rotation: "hover:-rotate-1",
     type: "Engineering",
-    image: "ptt-output.png", // Main cover image updated
+    image: "ptt-output.png",
     docUrl: "PTT-presentation.pdf",
     gallery: [
       "ptt-output.png", 
@@ -129,15 +158,14 @@ const PROJECTS = [
     role: "Creative Coding",
     shortDesc: "An interactive simulation of a futuristic online dating platform with a chatbot and video call features, built using p5.js.",
     tags: ["p5.js", "Art", "Design"],
-    color: "bg-[#E6DCCA]", // Warm Sand
+    color: "bg-[#E6DCCA]", 
     textColor: "text-[#5D4037]",
     rotation: "hover:-rotate-2",
     type: "Creative",
-    image: "alien-home.jpg", // Main cover image updated
-    // Updated links
+    image: "alien-home.jpg", 
     githubUrl: "https://github.com/katparins/alien-dating",
     liveUrl: "https://editor.p5js.org/pw2313/full/VdRf5RFUm", 
-    demoUrl: "https://youtu.be/xujbxAD08Ts", // Serves as Video Documentation
+    demoUrl: "https://youtu.be/xujbxAD08Ts", 
     gallery: [
       "alien-home.jpg",
       "alien-profile.jpg",
@@ -162,16 +190,15 @@ const PROJECTS = [
     role: "Algorithm Design",
     shortDesc: "A Python web app that solves the 24 Game puzzle using backtracking to compute valid expressions and handles edge cases with accuracy.",
     tags: ["Algo", "Python", "Web"],
-    color: "bg-[#FFFDF5]", // Soft White
+    color: "bg-[#FFFDF5]", 
     textColor: "text-[#8D6E63]",
     rotation: "hover:rotate-1",
     type: "Creative",
-    image: "24game-home.jpg", // Main cover image updated
+    image: "24game-home.jpg", 
     gallery: [
       "24game-home.jpg",
       "24game-output.jpg"
     ],
-    // Updated: Added non-empty strings to enable the buttons
     liveUrl: "https://24gamesolver.streamlit.app/", 
     githubUrl: "https://github.com/katparins/24gamesolver",
     demoUrl: "",
@@ -190,7 +217,6 @@ const PROJECTS = [
 ];
 
 // --- COMPONENTS ---
-
 const TiltCard = ({ children, className, rotation }) => {
   const cardRef = useRef(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
@@ -231,23 +257,19 @@ const TiltCard = ({ children, className, rotation }) => {
   );
 };
 
-// NEW COMPONENT: ProjectCard to handle image slideshow logic
 const ProjectCard = ({ project, onClick }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const images = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
 
   useEffect(() => {
-    // Only set up interval if there's more than one image AND we are hovering
     if (images.length <= 1 || !isHovering) {
-        setCurrentImageIndex(0); // Reset to first image (cover) when not hovering
+        setCurrentImageIndex(0); 
         return;
     }
-
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 800); // 0.8 seconds delay
-
+    }, 800); 
     return () => clearInterval(interval);
   }, [images.length, isHovering]);
 
@@ -263,8 +285,6 @@ const ProjectCard = ({ project, onClick }) => {
         className="bg-white rounded-[2.5rem] p-3 shadow-sm hover:shadow-2xl transition-all duration-500 border border-transparent hover:border-[#EBE0D0]"
       >
         <div className={`rounded-[2rem] overflow-hidden relative ${project.color} transition-colors duration-500 flex flex-col h-full`}>
-           
-           {/* IMAGE SECTION - Stacks on Top */}
            <div className="h-56 w-full relative overflow-hidden bg-white/20 shrink-0">
               {images.length > 0 ? (
                 images.map((img, idx) => (
@@ -278,17 +298,13 @@ const ProjectCard = ({ project, onClick }) => {
                   />
                 ))
               ) : (
-                /* DEFAULT PLACEHOLDER ART */
                 <div className="w-full h-full opacity-60 relative flex items-center justify-center">
                    <div className="absolute inset-0 flex items-center justify-center text-[#3E2723] opacity-20 transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12">
                       {project.type === 'Engineering' ? <Cpu size={140} /> : <Palette size={140} />}
                    </div>
-                   {/* Pattern Overlay */}
                    <div className="absolute inset-0 bg-[radial-gradient(#3E2723_1px,transparent_1px)] [background-size:20px_20px] opacity-5"></div>
                 </div>
               )}
-              
-              {/* Optional: Indicator Dots to show slideshow is active */}
               {images.length > 1 && isHovering && (
                 <div className="absolute bottom-3 right-3 flex gap-1.5 z-20 animate-in fade-in duration-300">
                   {images.map((_, idx) => (
@@ -301,12 +317,10 @@ const ProjectCard = ({ project, onClick }) => {
               )}
            </div>
 
-           {/* CONTENT SECTION - Stacks Below */}
            <div className="p-8 md:p-10 bg-white/60 backdrop-blur-xl w-full transition-all duration-500 group-hover:bg-white/95 border-t border-white/20 flex-1 flex flex-col justify-between relative z-20">
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-2 flex-wrap">
-                    {/* Role Badge */}
                     <span className="bg-[#FFF] px-3 py-1 rounded-lg text-[10px] uppercase tracking-widest font-bold text-[#5D4037] shadow-sm border border-[#EBE0D0]">
                       {project.role}
                     </span>
@@ -315,7 +329,6 @@ const ProjectCard = ({ project, onClick }) => {
                     <ArrowUpRight size={20} className="text-[#3E2723]" />
                   </div>
                 </div>
-
                 <h3 className="text-3xl font-serif font-bold text-[#3E2723] mb-2 group-hover:translate-x-1 transition-transform">
                   {project.title}
                 </h3>
@@ -334,20 +347,15 @@ const Sticker = ({ icon, label, color, rotate }) => (
   <div className={`group relative aspect-square rounded-3xl ${color} flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-xl hover:-translate-y-2 ${rotate}`}>
     <div className="text-[#5D4037] opacity-70 transition-transform duration-300 group-hover:animate-wiggle">{icon}</div>
     <span className="font-serif text-[#3E2723] font-medium">{label}</span>
-    {/* Shine effect */}
     <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
   </div>
 );
 
 const ProjectModal = ({ project, onClose }) => {
-  // NEW: State for the lightbox expanded image index (null when closed)
   const [expandedIndex, setExpandedIndex] = useState(null);
-  // NEW: Full screen state
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   if (!project) return null;
-  
-  // Destructure detail. If overview exists, we use the new layout.
   const isRichContent = !!project.detail.overview;
 
   const handleNext = (e) => {
@@ -364,20 +372,16 @@ const ProjectModal = ({ project, onClose }) => {
     }
   };
 
-  // Helper function to render bold text
   const parseBold = (text) => {
     if (!text) return null;
-    // Splits by **text** pattern
     return text.split(/(\*\*.*?\*\*)/g).map((part, index) => {
       if (part.startsWith('**') && part.endsWith('**')) {
-        // Return bolded element
         return <strong key={index} className="font-semibold text-[#3E2723]">{part.slice(2, -2)}</strong>;
       }
       return part;
     });
   };
 
-  // Conditional classes based on full screen state
   const modalClasses = isFullScreen 
     ? "fixed inset-0 z-[65] w-full h-full bg-[#FDFBF7] overflow-y-auto animate-in fade-in duration-300"
     : "bg-[#FDFBF7] w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5rem] shadow-2xl relative animate-in fade-in zoom-in duration-300 border-4 border-white ring-1 ring-[#EBE0D0]";
@@ -385,21 +389,17 @@ const ProjectModal = ({ project, onClose }) => {
   return (
     <div className={`fixed inset-0 z-[60] flex items-center justify-center p-4 backdrop-blur-md bg-[#3E2723]/10 ${isFullScreen ? 'p-0' : ''}`}>
       
-      {/* Lightbox Overlay */}
       {expandedIndex !== null && project.gallery && (
         <div 
           className="fixed inset-0 z-[70] flex items-center justify-center bg-black/95 p-4 animate-in fade-in duration-200"
           onClick={() => setExpandedIndex(null)}
         >
-          {/* Close Button */}
           <button 
             className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
             onClick={() => setExpandedIndex(null)}
           >
             <X size={28} />
           </button>
-
-          {/* Prev Button */}
           {expandedIndex > 0 && (
             <button
                 className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
@@ -408,8 +408,6 @@ const ProjectModal = ({ project, onClose }) => {
                 <ChevronLeft size={40} />
             </button>
           )}
-
-          {/* Next Button */}
           {expandedIndex < project.gallery.length - 1 && (
             <button
                 className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 p-4 bg-white/10 hover:bg-white/20 text-white rounded-full transition-colors z-50 backdrop-blur-sm"
@@ -418,28 +416,20 @@ const ProjectModal = ({ project, onClose }) => {
                 <ChevronRight size={40} />
             </button>
           )}
-
-          {/* Current Image */}
           <img 
             src={project.gallery[expandedIndex]} 
             alt="Expanded view" 
             className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-in-95 animate-in duration-300"
             onClick={(e) => e.stopPropagation()} 
           />
-          
-          {/* Counter */}
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 bg-black/50 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
             {expandedIndex + 1} / {project.gallery.length}
           </div>
         </div>
       )}
 
-      {/* Backdrop Click handler (only if not full screen) */}
       {!isFullScreen && (
-        <div 
-          className="absolute inset-0" 
-          onClick={onClose} 
-        />
+        <div className="absolute inset-0" onClick={onClose} />
       )}
 
       <div className={modalClasses}>
@@ -449,9 +439,6 @@ const ProjectModal = ({ project, onClose }) => {
            <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/30 rounded-full blur-2xl"></div>
            <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white/40 to-transparent"></div>
            
-           {/* PROJECT IMAGE IN HEADER REMOVED HERE */}
-
-           {/* CONTROLS (Full Screen Toggle + Close) */}
            <div className="absolute top-6 right-6 flex gap-4 z-10">
              <button 
                onClick={() => setIsFullScreen(!isFullScreen)} 
@@ -460,7 +447,6 @@ const ProjectModal = ({ project, onClose }) => {
              >
                {isFullScreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
              </button>
-
              <button onClick={onClose} className="p-2 bg-white/50 hover:bg-white rounded-full transition-all hover:rotate-90 text-[#5D4037] shadow-sm hover:scale-110">
               <X size={20} />
              </button>
@@ -474,45 +460,24 @@ const ProjectModal = ({ project, onClose }) => {
               {project.title}
             </h2>
             
-            {/* NEW: LIVE / DEMO BUTTONS */}
             <div className="flex flex-wrap gap-3 mt-6">
               {project.liveUrl && (
-                <a 
-                  href={project.liveUrl} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="flex items-center gap-2 bg-[#3E2723] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#5D4037] transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                >
+                <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-[#3E2723] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#5D4037] transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                   Visit Live Site <ExternalLink size={16} />
                 </a>
               )}
               {project.githubUrl && (
-                <a 
-                  href={project.githubUrl} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="flex items-center gap-2 bg-white text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#FAF9F6] transition-all shadow-sm border border-[#EBE0D0] hover:border-[#3E2723] hover:shadow-md transform hover:-translate-y-0.5"
-                >
+                <a href={project.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-white text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#FAF9F6] transition-all shadow-sm border border-[#EBE0D0] hover:border-[#3E2723] hover:shadow-md transform hover:-translate-y-0.5">
                   GitHub <Github size={16} />
                 </a>
               )}
               {project.demoUrl && (
-                <a 
-                  href={project.demoUrl} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="flex items-center gap-2 bg-[#E8DAC8] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#F3E9DD] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-                >
+                <a href={project.demoUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-[#E8DAC8] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#F3E9DD] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
                   Watch Demo <PlayCircle size={16} />
                 </a>
               )}
               {project.docUrl && (
-                <a 
-                  href={project.docUrl} 
-                  target="_blank" 
-                  rel="noreferrer"
-                  className="flex items-center gap-2 bg-[#EBE0D0] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#E6DCCA] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-                >
+                <a href={project.docUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 bg-[#EBE0D0] text-[#3E2723] px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#E6DCCA] transition-all shadow-sm hover:shadow-md transform hover:-translate-y-0.5">
                   Documentation <FileText size={16} />
                 </a>
               )}
@@ -522,11 +487,8 @@ const ProjectModal = ({ project, onClose }) => {
 
         {/* Modal Content */}
         <div className="p-8 md:p-10 space-y-6">
-          
           {isRichContent ? (
-            /* --- NEW RICH CONTENT LAYOUT (Jarvis & Report Gen) --- */
             <>
-              {/* Overview */}
               <div>
                 <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
                   <Sparkles size={24} className="text-[#D7CCC8]" /> Overview
@@ -535,8 +497,6 @@ const ProjectModal = ({ project, onClose }) => {
                   {parseBold(project.detail.overview)}
                 </p>
               </div>
-
-              {/* Background */}
               <div className="bg-[#FAF9F6] p-6 rounded-2xl border border-[#EBE0D0]">
                  <h3 className="font-serif text-xl mb-3 flex items-center gap-2 text-[#3E2723]">
                    <BookOpen size={20} className="text-[#D7CCC8]" /> Background
@@ -545,8 +505,6 @@ const ProjectModal = ({ project, onClose }) => {
                    {parseBold(project.detail.background)}
                  </p>
               </div>
-
-              {/* Image Gallery - Updated with Expand Logic */}
               {project.gallery && (
                 <div>
                    <h3 className="font-serif text-xl mb-4 text-[#3E2723] opacity-80">Snapshots</h3>
@@ -558,8 +516,6 @@ const ProjectModal = ({ project, onClose }) => {
                          className="aspect-video bg-[#F5F0E6] rounded-xl overflow-hidden border border-[#EBE0D0] shadow-sm relative group cursor-zoom-in"
                        >
                           <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                          
-                          {/* Hover Overlay Visual Cue */}
                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
                              <div className="bg-white/90 p-2 rounded-full opacity-0 group-hover:opacity-100 transform scale-75 group-hover:scale-100 transition-all shadow-md text-[#3E2723]">
                                <Maximize2 size={20} />
@@ -570,8 +526,6 @@ const ProjectModal = ({ project, onClose }) => {
                    </div>
                 </div>
               )}
-
-              {/* Process Text */}
               <div>
                  <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
                    <GitBranch size={24} className="text-[#D7CCC8]" /> The Process
@@ -580,8 +534,6 @@ const ProjectModal = ({ project, onClose }) => {
                    {parseBold(project.detail.processText)}
                  </p>
               </div>
-
-              {/* Outcome */}
               <div className="bg-[#F5F0E6] p-6 rounded-2xl border border-[#EBE0D0]">
                  <h3 className="font-serif text-xl mb-3 flex items-center gap-2 text-[#3E2723]">
                    <CheckCircle2 size={20} className="text-[#D7CCC8]" /> Outcome
@@ -592,7 +544,6 @@ const ProjectModal = ({ project, onClose }) => {
               </div>
             </>
           ) : (
-            /* --- ORIGINAL LAYOUT (Legacy projects) --- */
             <>
               <div>
                 <h3 className="font-serif text-2xl mb-4 flex items-center gap-3 text-[#3E2723]">
@@ -602,7 +553,6 @@ const ProjectModal = ({ project, onClose }) => {
                   {project.detail.challenge}
                 </p>
               </div>
-              
               <div>
                  <h3 className="font-serif text-2xl mb-6 flex items-center gap-3 text-[#3E2723]">
                   <GitBranch size={24} className="text-[#D7CCC8]" /> The Process
@@ -629,7 +579,6 @@ const ProjectModal = ({ project, onClose }) => {
             </>
           )}
 
-          {/* Footer - Tech Stack (Shared) */}
           <div className="pt-8 border-t border-dashed border-[#EBE0D0]">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#8D6E63] mb-4 flex items-center gap-2">
               <Terminal size={14} /> Technologies Used
@@ -642,7 +591,6 @@ const ProjectModal = ({ project, onClose }) => {
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -668,17 +616,13 @@ const App = () => {
           50% { transform: translateY(-15px); }
           100% { transform: translateY(0px); }
         }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
 
         @keyframes wiggle {
           0%, 100% { transform: rotate(-3deg); }
           50% { transform: rotate(3deg); }
         }
-        .group-hover\\:animate-wiggle:hover {
-          animation: wiggle 0.5s ease-in-out infinite;
-        }
+        .group-hover\\:animate-wiggle:hover { animation: wiggle 0.5s ease-in-out infinite; }
 
         .custom-underline {
           background-image: linear-gradient(120deg, #EBE0D0 0%, #EBE0D0 100%);
@@ -687,30 +631,17 @@ const App = () => {
           background-position: 0 88%;
           transition: background-size 0.25s ease-in;
         }
-        .custom-underline:hover {
-          background-size: 100% 88%;
-        }
+        .custom-underline:hover { background-size: 100% 88%; }
         
-        /* Coffee/Beige Scrollbar */
-        ::-webkit-scrollbar {
-          width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-          background: #FDFBF7; 
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #D7CCC8; 
-          border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #8D6E63; 
-        }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #FDFBF7; }
+        ::-webkit-scrollbar-thumb { background: #D7CCC8; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8D6E63; }
       `}</style>
 
       {/* --- BACKGROUND DECORATION --- */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-20 left-[10%] text-[#EBE0D0] opacity-50 animate-float" style={{ animationDelay: '0s' }}><Star size={24} /></div>
-        {/* Deleted Sparkle Here */}
         <div className="absolute bottom-32 left-[20%] text-[#EBE0D0] opacity-50 animate-float" style={{ animationDelay: '4s' }}><Heart size={20} /></div>
       </div>
 
@@ -718,13 +649,11 @@ const App = () => {
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-[#EBE0D0] shadow-sm transition-all duration-300">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center relative">
            <div className="flex items-center gap-4">
-             {/* Adjusted size for the bar layout */}
              <a href="#" aria-label="Home">
                 <LogoKw className="h-16 w-auto" />
              </a>
            </div>
            
-           {/* Desktop Nav */}
            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5D4037] bg-white px-8 py-4 rounded-full border border-[#EBE0D0] shadow-sm">
              {['Work', 'About', 'Resume'].map((item) => (
                <a 
@@ -740,7 +669,6 @@ const App = () => {
              ))}
            </div>
 
-           {/* Mobile Menu Toggle */}
            <button 
              className="md:hidden p-2 text-[#5D4037] hover:bg-[#F5F0E6] rounded-full transition-colors"
              onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -750,7 +678,6 @@ const App = () => {
            </button>
         </div>
 
-        {/* Mobile Nav Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-[#EBE0D0] shadow-lg py-4 px-6 flex flex-col gap-2 animate-in slide-in-from-top-2">
             {['Work', 'About', 'Resume'].map((item) => (
@@ -772,10 +699,7 @@ const App = () => {
       {/* --- HERO --- */}
       <header className="max-w-6xl mx-auto px-6 pt-32 pb-24 md:pt-48 md:pb-32 relative z-10">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-          
-          {/* Left Text */}
           <div className="text-center md:text-left flex-1">
-            
             <h1 className="text-5xl md:text-7xl font-serif font-medium mb-8 leading-[1.1] text-[#3E2723]">
               Hello, I'm <span className="italic relative inline-block text-[#8D6E63]">
                 Kat.
@@ -801,11 +725,8 @@ const App = () => {
             </div>
           </div>
 
-          {/* Right Image (Interactive Avatar) */}
           <div className="flex-1 flex justify-center md:justify-end relative">
              <AvatarKat className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96" />
-             
-             {/* Floating Stickers around Avatar */}
              <div className="absolute top-10 right-10 bg-white p-3 rounded-2xl shadow-lg animate-float" style={{ animationDelay: '1s' }}>
                <Code className="text-[#D7CCC8]" />
              </div>
@@ -813,7 +734,6 @@ const App = () => {
                <Palette className="text-[#D7CCC8]" />
              </div>
           </div>
-
         </div>
       </header>
 
@@ -844,8 +764,6 @@ const App = () => {
              </div>
              <h2 className="text-4xl md:text-5xl font-serif mb-8 text-[#3E2723]">A Little About Me</h2>
              
-             {/* Removed Headshot */}
-
              <div className="text-[#5D4037] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light flex flex-col gap-6">
                <p>
                  I’m <span className="font-medium text-[#3E2723]">Kat Wongsrisoontorn</span>. I work at the intersection of <span className="custom-underline font-medium text-[#3E2723]">creativity and technology</span> to build intuitive, human-centered systems.
@@ -859,32 +777,11 @@ const App = () => {
              </div>
           </div>
 
-          {/* Sticker Grid - Updated Colors */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <Sticker 
-              icon={<Cpu size={32} />} 
-              label="Engineer" 
-              color="bg-[#F5F0E6]" // Almond
-              rotate="rotate-2" 
-            />
-            <Sticker 
-              icon={<Palette size={32} />} 
-              label="Designer" 
-              color="bg-[#EBE0D0]" // Sand
-              rotate="-rotate-1" 
-            />
-            <Sticker 
-              icon={<Flower size={32} />} 
-              label="Miffy Lover" 
-              color="bg-[#F0EAE0]" // Bone
-              rotate="rotate-3" 
-            />
-            <Sticker 
-              icon={<Coffee size={32} />} 
-              label="Tea Drinker" 
-              color="bg-[#E6DCCA]" // Latte
-              rotate="-rotate-2" 
-            />
+            <Sticker icon={<Cpu size={32} />} label="Engineer" color="bg-[#F5F0E6]" rotate="rotate-2" />
+            <Sticker icon={<Palette size={32} />} label="Designer" color="bg-[#EBE0D0]" rotate="-rotate-1" />
+            <Sticker icon={<Flower size={32} />} label="Miffy Lover" color="bg-[#F0EAE0]" rotate="rotate-3" />
+            <Sticker icon={<Coffee size={32} />} label="Tea Drinker" color="bg-[#E6DCCA]" rotate="-rotate-2" />
           </div>
         </div>
       </section>
@@ -912,7 +809,6 @@ const App = () => {
         </div>
       </footer>
 
-      {/* MODAL */}
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
