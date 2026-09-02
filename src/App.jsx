@@ -581,7 +581,7 @@ const ProjectModal = ({ project, onClose }) => {
 
           <div className="pt-8 border-t border-dashed border-[#EBE0D0]">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#8D6E63] mb-4 flex items-center gap-2">
-              <Terminal size={14} /> Technologies Used
+              <Terminal size={14} /> Technologies
             </h4>
             <div className="flex flex-wrap gap-3">
               {project.detail.stack.map(tech => (
