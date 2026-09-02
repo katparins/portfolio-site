@@ -97,12 +97,20 @@ const PROJECTS = [
     rotation: "hover:-rotate-1",
     type: "Creative",
     image: "MoodMap-poster.jpg",
+    homepageImages: [
+       "MoodMap-poster.jpg",
+       "MoodMap-mood.jpg",
+       "MoodMap-comment.jpg",
+       "MoodMap-filter1.jpg",
+       "MoodMap-filter2.jpg",
+       "MoodMap-dark.jpg"
+    ],
     docUrl: "MoodMap-documentation.pdf", 
     liveUrl: "https://moodmap.site/", 
     githubUrl: "https://github.com/katparins/MoodMap", 
     demoUrl: "https://youtube.com/playlist?list=PLS5OCFJNzlOU&si=Fie9n0-lLVhhpm8Q",
     gallery: [
-       "MoodMap-poster.jpg",
+       "MoodMap-showcase.jpg",
        "MoodMap-mood.jpg",
        "MoodMap-comment.jpg",
        "MoodMap-filter1.jpg",
@@ -293,9 +301,11 @@ const ProjectCard = ({ project, onClick }) => {
   const [isHovering, setIsHovering] = useState(false);
   
   // Ensures cover image is the primary cover (index 0) on the home page card
-  const images = project.gallery && project.gallery.length > 0 
-    ? (project.gallery.includes(project.image) ? project.gallery : [project.image, ...project.gallery])
-    : [project.image];
+  const images = project.homepageImages 
+    ? project.homepageImages 
+    : (project.gallery && project.gallery.length > 0 
+        ? (project.gallery.includes(project.image) ? project.gallery : [project.image, ...project.gallery])
+        : [project.image]);
 
   useEffect(() => {
     if (images.length <= 1 || !isHovering) {
