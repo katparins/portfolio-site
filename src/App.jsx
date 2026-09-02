@@ -839,7 +839,7 @@ const App = () => {
            </div>
            
            <p className="text-xs text-[#D7CCC8]">
-             © 2025 Kat W. • Built with React, Tailwind & Jasmine Tea.
+             © 2026 Kat W. • Built with React, Tailwind & Jasmine Tea.
            </p>
         </div>
       </footer>
