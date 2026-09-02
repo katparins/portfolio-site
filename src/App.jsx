@@ -119,7 +119,7 @@ const PROJECTS = [
       
       outcome: "**Impact**\nJarvis automated the process of writing metadata, saving time and ensuring clarity across hundreds of datasets. It improved internal understanding of data assets and provided a scalable system for future features such as automatic tagging and data quality summaries.\n\n**Growth**\nThe project expanded my understanding of prompt engineering, data pipeline architecture, and how AI can transform the way teams interact with data.",
       
-      stack: ["LangChain", "OpenAI", "Google Cloud Platform", "Confluence API", "Python"]
+      stack: ["LangChain", "Python", "Google Cloud Platform", "OpenAI API", "Confluence API"]
     }
   },
   {
